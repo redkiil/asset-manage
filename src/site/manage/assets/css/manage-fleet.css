@@ -13,9 +13,10 @@ body{
     display: inline-block;
     height: 70px;
     width: 140px;
-    background-color: lightsalmon;
+    background-color: grey;
     text-align: center;
     line-height: 70px;
+    border-radius: 25px;
    
 
 }
@@ -36,11 +37,26 @@ body{
     margin: 0;
     padding: 0;
     background-color: lightseagreen;
+    position: relative;
+    z-index: 5;
 }
 .frotas span{
     display: block;
     margin: 5px 0px;
     color: #FFF;
+}
+.frotas:after{
+  content: "\f067"; 
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  position: absolute;
+  font-size: 65px;
+  top: 30%;
+  left: 30%;
+  color: lightblue;
+  z-index: -1;
 }
 .hover {
     animation: createBox .25s forwards;
