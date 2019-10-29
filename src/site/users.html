@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="cuzito">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+        <table style="width:100%;border:1px solid black;" id="usrs">
+                <tr>
+                  <th>Nome</th>
+                  <th>Setor</th>
+                  <th>Frente</th>
+                  <th>Matricula</th>
+                </tr>
+              </table>
+    <script>
+    let token = localStorage.getItem('bleibe');
+    console.log(token)
+    axios.get('http://localhost:3000/users', { headers: { 'auth': token } } ).then(function(response){
+        console.log(response);
+        for(var i=0; i < response.data.length; i++){
+            let secname = response.data[i].sector ? response.data[i].sector.name : "N/A";
+            let ssecname = response.data[i].subsector ? response.data[i].subsector.name : "N/A";
+
+            let rws = "<tr><td>"+response.data[i].name+"</td><td>"+secname+"</td><td>"+ssecname+"</td><td>"+response.data[i].registration+"</td></tr>";
+            console.log(rws);
+            let tableid = document.getElementById("usrs");
+            tableid.insertAdjacentHTML('beforeend', rws)
+        }
+    }).catch(e=>{
+        console.log(e.response);
+        window.close();
+    });
+    </script>
+    <script src="script"></script>
+</body>
+</html>

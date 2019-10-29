@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="./login/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+        <script src="https://kit.fontawesome.com/81e278144d.js" crossorigin="anonymous"></script>
+        <title>Login Page - Welcome</title>L
+    </head>
+<body>
+
+
+<div id="form">
+        <i class="fas fa-user-friends fa-4x"></i>
+<form action="" id="loginform">
+  <label class="form-item">Matricula:
+  <input type="text" name="registration" placeholder="0000" id="registration"></label>
+  <label class="form-item">Senha:
+  <input type="password" name="password" placeholder="123456" id="password"></label>
+  <button class="btn-submit" id="btn-submit">Entrar</button>
+  <p id="msg"></p>
+  <input type="button" id="logout" value="Logout">
+</form>
+</div>
+
+
+<script>
+    var form = document.getElementById("loginform");
+    var btn = document.getElementById("btn-submit");
+    let msg = document.getElementById("msg");
+    btn.addEventListener('click', function(e){
+        event.preventDefault();
+        console.log(form.elements.password.value, form.elements.registration.value);
+        //var sent = {"registration": form.elements.registration.value, "password": form.elements.password.value};
+        let data = {
+            registration: form.elements.registration.value,
+            password: form.elements.password.value
+        };
+        if(!validateData(data)) return false;
+        btn.classList.add("active");
+        btn.disabled = true;
+       axios.post('http://localhost:3000/auth', data ).then(function(response){
+            console.log(response.data);
+            
+            msg.innerHTML = response.data.msg;
+            //btn.classList.remove("active");
+            btn.classList.add("success");
+            console.log("OK");
+        }).catch(e=>{
+            console.log("BILU" + e.response);
+            //btn.classList.remove("active");
+            btn.classList.add("error");
+            msg.innerHTML = e.response.data.msg;
+            setTimeout(function(){
+                btn.classList.remove("error");
+                btn.classList.remove("active");
+                btn.disabled = false;
+            }, 2000);
+        });
+
+    });
+    let logoutbtn = document.getElementById("logout");
+    logoutbtn.addEventListener("click", function(e){
+        e.preventDefault();
+        axios.get('http://localhost:3000/auth/logout').then(function(response){
+            msg.innerHTML = response.data.msg;
+        }).catch(e=>{
+
+            msg.innerHTML = e.response.data.msg;
+        });
+    });
+    let validateData = (values) =>{
+        console.log(values);
+        if(!values.registration){
+            msg.innerHTML = "erro - matricula vazio";
+            return false;
+        }
+        let regexp = /^[0-9]{4}$/;
+        let okregistration = regexp.test(values.registration);
+        if(!okregistration){
+            msg.innerHTML = "erro - matricula invalida";
+            return false;
+        }
+        if(!values.password){
+            msg.innerHTML = "erro - senha vazia";
+            return false;
+        }
+        return true;
+    }
+</script>
+
+</body>
+</html>
