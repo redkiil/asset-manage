@@ -28,3 +28,15 @@ exports.get = (req, res) => {
     res.clearCookie('usrtoken');
     return res.status(200).send({ msg: "OK"});
 };
+exports.validateData = (req, res, next) =>{
+    const { registration , password } = req.body;
+    if(!registration)
+        return  res.status(400).send({ msg: "campo matricula bazio"});
+    let regexp = /^[0-9]{4}$/;
+    let okregistration = regexp.test(registration);
+    if(!okregistration)
+        return  res.status(400).send({ msg: "formato matricula invalido"});
+    if(!password)
+        return  res.status(400).send({ msg: "campo senha vazio"});
+    return next();
+}

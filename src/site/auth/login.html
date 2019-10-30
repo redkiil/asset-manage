@@ -7,7 +7,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
         <script src="https://kit.fontawesome.com/81e278144d.js" crossorigin="anonymous"></script>
-        <title>Login Page - Welcome</title>L
+        <title>Login Page - Welcome</title>
     </head>
 <body>
 
@@ -41,7 +41,9 @@
         if(!validateData(data)) return false;
         btn.classList.add("active");
         btn.disabled = true;
-       axios.post('http://localhost:3000/auth', data ).then(function(response){
+        var base_url = window.location.origin;
+        console.log(base_url);
+       axios.post(base_url +'/auth', data ).then(function(response){
             console.log(response.data);
             
             msg.innerHTML = response.data.msg;
