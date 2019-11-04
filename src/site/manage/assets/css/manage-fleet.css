@@ -33,12 +33,34 @@ body{
     border-radius: 25px;
     border: 1px solid grey;
     box-shadow:inset 0px 0px 15px rgba(68,68,68,0.6);
-
+    margin: 5px;
 }
 .operators span{
     display: inline-block;
   vertical-align: middle;
   line-height: normal;
+}
+.op-description{
+  position: absolute;
+  background-color: aliceblue;
+  text-align: left;
+  bottom: 0px;
+  height: 70px;
+  width: 140px;
+  border-radius: 25px;
+  border: 1px solid grey;
+  box-shadow:inset 0px 0px 15px rgba(68,68,68,0.6);
+  z-index:100;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.25s;
+}
+.op-description span{
+  margin-left: 5px;
+}
+.operators:hover .op-description{
+  visibility: visible;
+  opacity: 1;
 }
 #fleet-container{
     padding: 25px;
@@ -53,15 +75,19 @@ body{
     padding: 0;
     background-color: #fff;
     position: relative;
-    z-index: 5;
     border: 1px solid black;
     border-radius: 10px;
+    background-size: 40%;
+    background-position: center;
+    background-position-y: 30px;
+    background-repeat: no-repeat;
+    background-image: url('../plus-solid.svg');
 }
 .frotas span{
     display: inline-block;
     margin: 5px 0px;
 }
-.frotas:after{
+/*.frotas:after{
   content: "\f067"; 
   font-family: FontAwesome;
   font-style: normal;
@@ -72,8 +98,7 @@ body{
   top: 30%;
   left: 30%;
   color: rgba(0,0,0,.8);
-  z-index: -1;
-}
+}*/
 .frotas-error{
   border: 1px solid red;
 }

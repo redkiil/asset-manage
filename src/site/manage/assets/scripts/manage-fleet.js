@@ -35,22 +35,28 @@ const tractors = [
 const operators = [
     {
         name: 'Augusto',
-        registration: 8747
+        registration: 8747,
+        funcao: 'Transbordo'
     }, {
         name: 'Rafael',
-        registration: 8735
+        registration: 8735,
+        funcao: 'Transbordo'
     }, {
         name: 'Vicente',
-        registration: 7765
+        registration: 7765,
+        funcao: 'Transbordo'
     }, {
         name: 'Maria',
-        registration: 6565
+        registration: 6565,
+        funcao: 'Colhedor'
     }, {
         name: 'Joao Victor',
-        registration: 5452
+        registration: 5452,
+        funcao: 'Transbordo'
     }, {
         name: 'Edvan',
-        registration: 3654
+        registration: 3654,
+        funcao: 'Colhedor'
     }
 ];
 const tractorsContainer = document.querySelector('.fleet-tractors');
@@ -163,6 +169,13 @@ function populateOperators(data){
         mydiv.innerHTML = `<span>${elem.name}#${elem.registration}</span>`;
         mydiv.addEventListener('dragstart', dragStart);
         mydiv.addEventListener('dragend', dragEnd);
+
+        //let op-description = <div class="op-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus malesuada tristique dapibus</div>
+        let opDescription = document.createElement('div');
+        opDescription.setAttribute('class', 'op-description');
+        opDescription.innerHTML = `<span>Função:${elem.funcao} Status:Ativo</span>`
+        
         operatorsContainer.appendChild(mydiv);
+        mydiv.appendChild(opDescription);
     });
 }
