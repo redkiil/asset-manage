@@ -1,10 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
 body{
     margin: 0;
     padding: 0;
     padding-left: 50px;
     background-color: #fff;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: bold;
+    font-family: 'PT Sans', sans-serif;
     text-rendering: geometricPrecision;
 }
 #op-container{
@@ -41,19 +41,22 @@ body{
   line-height: normal;
 }
 .op-description{
+  margin: 0;
+  padding: 0;
   position: absolute;
-  background-color: aliceblue;
-  text-align: left;
-  bottom: 0px;
   height: 70px;
   width: 140px;
+  background-color: aliceblue;
+  text-align: center;
   border-radius: 25px;
   border: 1px solid grey;
+  font-size: 15px;
   box-shadow:inset 0px 0px 15px rgba(68,68,68,0.6);
   z-index:100;
   visibility: hidden;
   opacity: 0;
   transition: 0.25s;
+  bottom: 0px;
 }
 .op-description span{
   margin-left: 5px;

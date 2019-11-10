@@ -26,4 +26,7 @@ router.get('/cadastrar',authMiddleware, (req, res) => {
 router.get('/manage/frota',authMiddleware, (req, res) => {
     res.sendFile(path.normalize(__dirname+"/../site/manage/manage-fleet.html"));
 });
+router.get('/home',authMiddleware, (req, res) => {
+    res.sendFile(path.normalize(__dirname+"/../site/home/index.html"));
+});
 module.exports = router;

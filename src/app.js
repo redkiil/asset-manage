@@ -26,7 +26,7 @@ const sectors  = require('./routes/sectors');
 //console.log(path.normalize(__dirname+"../../src/site/auth/assets"));
 
 app.use('/static', express.static(path.normalize(__dirname+"../../src/site/auth/assets")));
-app.use('/static/manage', express.static(path.normalize(__dirname+"../../src/site/manage/assets")));
+app.use('/site/assets', express.static(path.normalize(__dirname+"../../src/site/assets")));
 
 app.use('/', mainroute);
 app.use('/users', users)
