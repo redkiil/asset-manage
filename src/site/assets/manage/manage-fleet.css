@@ -1,12 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
-body{
-    margin: 0;
-    padding: 0;
-    padding-left: 50px;
-    background-color: #fff;
-    font-family: 'PT Sans', sans-serif;
-    text-rendering: geometricPrecision;
-}
 #op-container{
     width: 800px;
     height: 350px;
@@ -84,12 +75,13 @@ body{
     background-position: center;
     background-position-y: 30px;
     background-repeat: no-repeat;
-    background-image: url('../plus-solid.svg');
+    background-image: url('plus-solid.svg');
 }
 .frotas span{
     display: inline-block;
     margin: 5px 0px;
 }
+
 /*.frotas:after{
   content: "\f067"; 
   font-family: FontAwesome;
