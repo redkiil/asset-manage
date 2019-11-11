@@ -20,7 +20,7 @@
     <script>
     let token = localStorage.getItem('bleibe');
     console.log(token)
-    axios.get('http://localhost:3000/users', { headers: { 'auth': token } } ).then(function(response){
+    axios.get('http://localhost:3000/users', { withCredentials: true } ).then(function(response){
         console.log(response);
         for(var i=0; i < response.data.length; i++){
             let secname = response.data[i].sector ? response.data[i].sector.name : "N/A";
