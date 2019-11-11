@@ -17,9 +17,7 @@ exports.post = async(req, res) =>{
             expiresIn: 86400
         });
         let cu = `Bearer ${token}`;
-        res.cookie('usrtoken', cu, { maxAge: 9999999});
-        console.log(req.cookies.usrtoken);
-        return res.status(200).send({ msg: "logado com sucesso" });
+        return res.status(200).send({ msg: "logado com sucesso", biscoito: cu });
     }
     res.status(400).send({ msg: "matricula e/ou senha incorretos"});
 };

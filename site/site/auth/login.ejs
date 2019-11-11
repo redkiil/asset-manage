@@ -3,7 +3,7 @@
 <html>
     <head>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../../site/assets/login/login.css">
+        <link rel="stylesheet" type="text/css" href="../../static/login/login.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
         <script src="https://kit.fontawesome.com/81e278144d.js" crossorigin="anonymous"></script>
@@ -41,12 +41,11 @@
         if(!validateData(data)) return false;
         btn.classList.add("active");
         btn.disabled = true;
-        var base_url = window.location.origin;
-        console.log(base_url);
-       axios.post(base_url +'/auth', data ).then(function(response){
+       axios.post('http://localhost:3000/auth', data).then(function(response){
             console.log(response.data);
             
             msg.innerHTML = response.data.msg;
+            document.cookie = `usrtoken=${response.data.biscoito}; expires=Thu, 18 Dec 2020 12:00:00 UTC`;
             //btn.classList.remove("active");
             btn.classList.add("success");
             console.log("OK");
