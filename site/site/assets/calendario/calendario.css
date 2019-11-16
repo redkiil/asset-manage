@@ -1,0 +1,28 @@
+#calendar-wrapper{
+    display: block;
+    padding: 50px;
+    text-align: center;
+}
+.date-select{
+    text-align: center;
+    padding-top: 5px;
+}
+.to-left, .to-right, .date{
+    background-color: slateblue;
+    padding: 5px;
+    font-weight: bold;
+    color: white;
+}
+#assets-people{
+   margin-top: 25px;
+}
+#assets-people li{
+    padding: 15px;
+    border: 1px solid black;
+    background-color: slateblue;
+    border-radius: 15px;
+    width: 100px;
+    display: inline-block;
+    color: white;
+    font-weight: bold;
+}

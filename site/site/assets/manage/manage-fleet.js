@@ -60,8 +60,8 @@ const operators = [
     }
 ];
 const tractorsContainer = document.querySelector('.fleet-tractors');
-const harvesterContainer = document.querySelector('.fleet-harvesters');
-const operatorsContainer = document.querySelector('#op-container');
+const harvesterContainer = document.querySelector('.fleet-harvesters ul');
+const operatorsContainer = document.querySelector('#op-container ul');
 operatorsContainer.addEventListener('dragover', dragOver);
 operatorsContainer.addEventListener('dragleave', dragLeave);
 operatorsContainer.addEventListener('dragenter', dragEnter);
@@ -98,7 +98,8 @@ function dragEnd(e){
 //oaskdoksad
 function dragOver(e){
     e.preventDefault();
-    if(this.children.length >1  && !(this.id == "op-container")){
+    console.log(this.id);
+    if(this.children.length >1  && !(this.id == "operators-box")){
         this.className = "frotas frotas-error";
         return false;
     }
@@ -106,32 +107,32 @@ function dragOver(e){
 function dragLeave(e){
     e.preventDefault();
     console.log(this.id);
-    if(this.children.length >1  && !(this.id == "op-container")){
+    if(this.children.length >1  && !(this.id == "operators-box")){
         this.className = "frotas";
         return false;
     }
-    if(!(this.id == "op-container")){
+    if(!(this.id == "operators-box")){
         this.className = "frotas";
     }
 }
 function dragEnter(e){
     e.preventDefault();
-    if(this.children.length >1  && !(this.id == "op-container")){
-        this.className = "frotas frotas-error";
+    if(this.children.length >1  && !(this.id == "operators-box")){
+        //this.className = "frotas frotas-error";
         return false;
     }
-    if(!(this.id == "op-container")){
-        this.className += " hover";
+    if(!(this.id == "operators-box")){
+       this.className += " hover";
     }
 }
 function dragDrop(e){
     e.preventDefault();
     console.log(this.children.length);
-    if(this.children.length >1  && !(this.id == "op-container")){
+    if(this.children.length >1  && !(this.id == "operators-box")){
         this.className = "frotas";
         return false;
     }
-    if(!(this.id == "op-container")){
+    if(!(this.id == "operators-box")){
         this.className = "frotas";
     }
     const id = e.dataTransfer.getData("text/plain");
@@ -143,7 +144,7 @@ function populateFleet(data){
     console.log("CU",data);
     data.forEach(function(elem){
         //tractorsContainer.innerHTML +=  `<div class="frotas" id="${elem.fleetid}"><span>${elem.fleetid}</span></div>`;
-        let mydiv = document.createElement('div');
+        let mydiv = document.createElement('li');
         mydiv.setAttribute('id', elem.fleetid);
         mydiv.setAttribute('class', 'frotas');
         mydiv.innerHTML = `<span>${elem.fleetid}</span>`;
@@ -162,7 +163,7 @@ function populateFleet(data){
 function populateOperators(data){
     data.forEach(function(elem){
         //tractorsContainer.innerHTML +=  `<div class="frotas" id="${elem.fleetid}"><span>${elem.fleetid}</span></div>`;
-        let mydiv = document.createElement('div');
+        let mydiv = document.createElement('li');
         mydiv.setAttribute('id', elem.registration);
         mydiv.setAttribute('class', 'operators');
         mydiv.setAttribute('draggable', true);

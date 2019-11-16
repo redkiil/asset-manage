@@ -19,4 +19,7 @@ router.get('/frente', (req, res) => {
 router.get('/login', (req, res) => {
     res.render('auth/login', { page: 'manage/manage-fleet' });
 });
+router.get('/calendar', (req, res) => {
+    res.render('home/index', { page: 'calendario/index' });
+});
 module.exports = router;
