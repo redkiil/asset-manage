@@ -7,40 +7,17 @@
     <meta name="csrf-token" content="cuzito">
     <title>Document</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../../static/frente/frente.css"/>
 </head>
 <body>
-        <table style="width:100%;border:1px solid black;" id="usrs">
-                <tr>
-                  <th>Nome</th>
-                  <th>Setor</th>
-                  <th>Frente</th>
-                  <th>Matricula</th>
-                </tr>
-              </table>
-    <script>
-    let token = localStorage.getItem('bleibe');
-    console.log(token)
-    axios.get('http://localhost:3000/users', { withCredentials: true } ).then(function(response){
-        console.log(response);
-        for(var i=0; i < response.data.length; i++){
-            let secname = response.data[i].sector ? response.data[i].sector.name : "N/A";
-            let ssecname = response.data[i].subsector ? response.data[i].subsector.name : "N/A";
-
-            let rws = "<tr><td>"+response.data[i].name+"</td><td>"+secname+"</td><td>"+ssecname+"</td><td>"+response.data[i].registration+"</td></tr>";
-            console.log(rws);
-            let tableid = document.getElementById("usrs");
-            tableid.insertAdjacentHTML('beforeend', rws)
-        }
-    }).catch(e=>{
-        console.log(e.response);
-        window.close();
-    });
-    </script>
-    <style>
-        tr,td,th {
-            border: 1px solid black;
-        }
-    </style>
-
+    <table style="width:100%;border:1px solid black;" id="usrs">
+        <tr>
+            <th>Nome</th>
+            <th>Setor</th>
+            <th>Frente</th>
+            <th>Matricula</th>
+        </tr>
+    </table>
+    <script src="../../static/frente/frente.js" type="text/javascript"></script>
 </body>
 </html>

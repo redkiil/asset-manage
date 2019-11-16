@@ -61,7 +61,8 @@ const operators = [
 ];
 const tractorsContainer = document.querySelector('.fleet-tractors');
 const harvesterContainer = document.querySelector('.fleet-harvesters ul');
-const operatorsContainer = document.querySelector('#op-container ul');
+const operatorsContainer = document.querySelector('#op-container');
+const operatorsList = document.querySelector("#op-container ul");
 operatorsContainer.addEventListener('dragover', dragOver);
 operatorsContainer.addEventListener('dragleave', dragLeave);
 operatorsContainer.addEventListener('dragenter', dragEnter);
@@ -99,7 +100,7 @@ function dragEnd(e){
 function dragOver(e){
     e.preventDefault();
     console.log(this.id);
-    if(this.children.length >1  && !(this.id == "operators-box")){
+    if(this.children.length >1  && !(this.id == "op-container")){
         this.className = "frotas frotas-error";
         return false;
     }
@@ -107,37 +108,38 @@ function dragOver(e){
 function dragLeave(e){
     e.preventDefault();
     console.log(this.id);
-    if(this.children.length >1  && !(this.id == "operators-box")){
+    if(this.children.length >1  && !(this.id == "op-container")){
         this.className = "frotas";
         return false;
     }
-    if(!(this.id == "operators-box")){
+    if(!(this.id == "op-container")){
         this.className = "frotas";
     }
 }
 function dragEnter(e){
     e.preventDefault();
-    if(this.children.length >1  && !(this.id == "operators-box")){
+    if(this.children.length >1  && !(this.id == "op-container")){
         //this.className = "frotas frotas-error";
         return false;
     }
-    if(!(this.id == "operators-box")){
+    if(!(this.id == "op-container")){
        this.className += " hover";
     }
 }
 function dragDrop(e){
     e.preventDefault();
     console.log(this.children.length);
-    if(this.children.length >1  && !(this.id == "operators-box")){
+    let nodetoappend = (this.id != "op-container") ? this : operatorsList;
+    if(this.children.length >1  && !(this.id == "op-container")){
         this.className = "frotas";
         return false;
     }
-    if(!(this.id == "operators-box")){
+    if(!(this.id == "op-container")){
         this.className = "frotas";
     }
     const id = e.dataTransfer.getData("text/plain");
    
-    this.appendChild(document.getElementById(id));
+    nodetoappend.appendChild(document.getElementById(id));
     console.log("DRAG DROP",e, id);
 }
 function populateFleet(data){
@@ -176,7 +178,7 @@ function populateOperators(data){
         opDescription.setAttribute('class', 'op-description');
         opDescription.innerHTML = `<span>Função:${elem.funcao} Status:Ativo</span>`
         
-        operatorsContainer.appendChild(mydiv);
+        operatorsList.appendChild(mydiv);
         mydiv.appendChild(opDescription);
     });
 }

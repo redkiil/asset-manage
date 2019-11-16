@@ -25,6 +25,7 @@
     border: 1px solid grey;
     box-shadow:inset 0px 0px 15px rgba(68,68,68,0.6);
     margin: 5px;
+    cursor: grabbing;
 }
 .operators span{
     display: inline-block;
@@ -73,7 +74,7 @@
     border-radius: 10px;
     background-size: 40%;
     background-position: center;
-    background-position-y: 30px;
+    background-position-y: 32px;
     background-repeat: no-repeat;
     background-image: url('plus-solid.svg');
 }
