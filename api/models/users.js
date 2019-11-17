@@ -23,6 +23,8 @@ const schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "SubSectors",
         required: true
+    },dayoff:{
+        type: Number,
     }
 
 

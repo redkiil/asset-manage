@@ -15,11 +15,10 @@ body{
     padding: 30px 0px;
     text-align: center;
 }
-.sidebar h2{
+.sidebar h2,p{
     color: aliceblue;
     font-size: 18px;
-    color: green;
-    text-shadow: 0px 0px 5vw green,2vw 2vw 15vw green,-2vw -2vw 25vw green;
+    font-weight: bold;
 }
 .sidebar ul{
     margin-top: 60px;

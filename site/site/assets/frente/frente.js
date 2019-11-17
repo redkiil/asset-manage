@@ -1,5 +1,3 @@
-
-let token = localStorage.getItem('bleibe');
 fetchUsers().then(r=>{
     populateTables(r);
 });

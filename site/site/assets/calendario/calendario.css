@@ -28,3 +28,27 @@
     color: white;
     font-weight: bold;
 }
+#calendar-table{
+    background-color: darkgrey;
+    width: 250px;
+    
+}
+#calendar-table thead{
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+
+}
+th{
+    width: 30px;
+}
+#calendar-table td{
+    width: 5px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    height: 25px;
+    background-color: lightgray;
+    font-weight: bold;
+    color: white;
+}
