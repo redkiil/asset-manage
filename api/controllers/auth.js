@@ -8,8 +8,6 @@ exports.post = async(req, res) =>{
 
     const { registration , password } = req.body;
     
-    console.log(req.body.registration)
-
     const usr = await User.findOne({ registration: registration });
     
     if(usr && (password === "oi")){
@@ -17,7 +15,8 @@ exports.post = async(req, res) =>{
             expiresIn: 86400
         });
         let cu = `Bearer ${token}`;
-        return res.status(200).send({ msg: "logado com sucesso", biscoito: cu });
+        res.cookie('usrtoken',cu, { maxAge: 864000000, httpOnly: true});
+        return res.status(200).send({ msg: "logado com sucesso"});
     }
     res.status(400).send({ msg: "matricula e/ou senha incorretos"});
 };
@@ -37,4 +36,7 @@ exports.validateData = (req, res, next) =>{
     if(!password)
         return  res.status(400).send({ msg: "campo senha vazio"});
     return next();
-}
+};
+exports.validateuser = (req, res) => {
+    return res.status(200).send({ msg: "GAY"});
+};

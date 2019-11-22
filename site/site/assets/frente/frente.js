@@ -10,6 +10,7 @@ async function fetchUsers(){
 };
 function populateTables(objects){
     objects.forEach(function(e){
+        //TODO: convert this to createElement
         let sectorName = e.sector ? e.sector.name : "N/A";
         let subSectorName = e.subsector ? e.subsector.name : "N/A";
         let rows = `<tr><td>${e.name}</td><td>${sectorName}</td><td>${subSectorName}</td><td>${e.registration}</td></tr>`;

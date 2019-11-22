@@ -3,8 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-
-router.get('/home', (req, res) => {
+const veryfy = require('./middlewares/check');
+router.get('/home', veryfy, (req, res) => {
     res.render('home/index', { page: 'inicial/index' });
 });
 router.get('/manage/fleet', (req, res) => {

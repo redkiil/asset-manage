@@ -6,7 +6,7 @@ module.exports = (req, res, next) =>{
     const authHeader = req.cookies.usrtoken;
 
     if(!authHeader)
-        return res.redirect("/site/logarse");
+        return res.status(401).send({ error: 'user invalid'});
     
     const parts = authHeader.split(' ');
 
