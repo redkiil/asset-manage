@@ -7,7 +7,7 @@ window.onload = function(){
     var lastmonth;
     setTimeout(() => {
         dateDom.innerHTML = formatDate(date);
-    }, 1000);
+    }, 100);
     toleft.addEventListener('click', function(){
         date.setDate(date.getDate() - 1);
         dateDom.innerHTML = formatDate(date);

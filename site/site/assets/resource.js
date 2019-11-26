@@ -1,0 +1,35 @@
+const path = require('path');
+var rsrc = {
+    calendar: {
+        'kj8n3SMJMy': 'calendario/calendario.js',
+        'Qgz0uwgiu4': 'calendario/calendario.css'
+    }, frente: {
+        'vaXfocSU0R': 'frente/frente.js',
+        'BtNWxJ0hfD':  'frente/frente.css'
+    }
+}
+module.exports = (req, res) => {
+    if(!req.params.rsrc)
+        return res.status(404).send("resource invalid");
+    let rsrc_file = findByKey(rsrc, req.params.rsrc);
+    if(!rsrc_file)
+        return res.status(404).send("resource not found");
+
+    res.sendFile(rsrc_file, { root: path.join(__dirname, '../assets') });
+};
+function findByKey(obj, key){
+    var result;
+    for (var property in obj){
+        if (obj.hasOwnProperty(property)){
+            if (typeof obj[property] === "object"){
+                result = findByKey(obj[property], key);
+                if (typeof result !== "undefined"){
+                    return result;
+                }
+            }
+            else if (property === key){
+                return obj[key];
+            }
+        }   
+    }
+}

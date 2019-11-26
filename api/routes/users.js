@@ -9,5 +9,6 @@ const userController = require('../controllers/users')
 
 router.post('/', authMiddleware, userController.post);
 router.get('/', authMiddleware,userController.get);
-router.get('/:rid', userController.getByRegistration)
+router.get('/:rid', userController.getByRegistration);
+router.get('/badge/:id', userController.createBadge);
 module.exports = router;

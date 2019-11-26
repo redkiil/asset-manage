@@ -1,8 +1,9 @@
+console.log(API);
 fetchUsers().then(r=>{
     populateTables(r);
 });
 async function fetchUsers(){
-    return axios.get('http://localhost:3000/users', { withCredentials: true } ).then(function(response){
+    return axios.get(`${API}/users`, { withCredentials: true } ).then(function(response){
         return response.data;
     }).catch(e=>{
         return e;
