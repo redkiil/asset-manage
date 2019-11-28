@@ -8,7 +8,7 @@ const config = require('../config.json');
 const resource = require('./assets/resource');
 
 router.get('/home', veryfy, (req, res) => {
-    res.render('home/index', { page: 'inicial/index' });
+    res.render('home/index', { page: 'inicial/index', registration: req.useregistration });
 });
 router.get('/manage/fleet', (req, res) => {
     res.render('home/index', { page: 'manage/manage-fleet' });
@@ -26,4 +26,7 @@ router.get('/calendar', (req, res) => {
     res.render('home/index', { page: 'calendario/index' });
 });
 router.get('/resource/:rsrc', resource);
+router.get('/', (req, res) => {
+    res.redirect("/home");
+});
 module.exports = router;

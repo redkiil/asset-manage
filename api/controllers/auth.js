@@ -37,6 +37,7 @@ exports.validateData = (req, res, next) =>{
         return  res.status(400).send({ msg: "campo senha vazio"});
     return next();
 };
-exports.validateuser = (req, res) => {
-    return res.status(200).send({ msg: "GAY"});
+exports.validateuser = async(req, res) => {
+    const usr = await User.findOne({ _id: req.userid }, "registration");
+    return res.status(200).send({ registration: usr.registration });
 };

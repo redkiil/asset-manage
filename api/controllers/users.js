@@ -40,46 +40,49 @@ exports.getByRegistration = (req, res, next) =>{
         res.status(400).send({"message": "fail to fetch user "+ req.params.id });
     });
 }
-exports.createBadge = (req, res) =>{
-    var canvas = Canvas.createCanvas(200, 200)
-var ctx = canvas.getContext('2d')
+exports.createBadge = async (req, res) =>{
+    var id = req.params.id;
+    let name = `AUGUSTO`;
+    let lastname = `NETO`;
+    let rid = `${id}    *`;
+    let setor = `AGRICOLA`;
+    await User.findOne({ registration: id },'name sector').populate('sector').then(data=>{
+        let fullname = data.name.split(" ");
+        name = fullname[0].toUpperCase();
+        lastname = fullname[1].toUpperCase();
+        setor = data.sector.name.toUpperCase();
+        console.log(data)
+    }).catch(e=>{
+        console.log(e);
+    });
+    var canvas = Canvas.createCanvas(300, 550)
+    var ctx = canvas.getContext('2d')
+    const img = new Canvas.Image;
+    const img2 = new Canvas.Image;
+    img2.onload = () => {
+        ctx.drawImage(img2, 0, 0, 300, 550);
+    }
+    img.onload = () => {
+        ctx.font = 'bold 22px Tahoma'
+        ctx.textAlign = 'center';
+       
+       
+        ctx.fillText(name, 220, 200);
+        ctx.fillText(lastname, 220, 230);
+        ctx.fillText(rid, 220, 260);
+        ctx.fillText(setor, 150, 545);
+        ctx.drawImage(img, 5, 130, 130, 200);
 
-ctx.globalAlpha = 0.2
-
-ctx.strokeRect(0, 0, 200, 200)
-ctx.lineTo(0, 100)
-ctx.lineTo(200, 100)
-ctx.stroke()
-
-ctx.beginPath()
-ctx.lineTo(100, 0)
-ctx.lineTo(100, 200)
-ctx.stroke()
-
-ctx.globalAlpha = 1
-ctx.font = 'normal 40px Impact, serif'
-
-ctx.rotate(0.5)
-ctx.translate(20, -40)
-
-ctx.lineWidth = 1
-ctx.strokeStyle = '#ddd'
-ctx.strokeText('Wahoo', 50, 100)
-
-ctx.fillStyle = '#000'
-ctx.fillText('Wahoo', 49, 99)
-
-var m = ctx.measureText('Wahoo')
-
-ctx.strokeStyle = '#f00'
-
-ctx.strokeRect(
-  49 + m.actualBoundingBoxLeft,
-  99 - m.actualBoundingBoxAscent,
-  m.actualBoundingBoxRight - m.actualBoundingBoxLeft,
-  m.actualBoundingBoxAscent + m.actualBoundingBoxDescent
-)
-
-canvas.createPNGStream().pipe(fs.createWriteStream(path.join(__dirname, '../badges/text.png')))
-res.status(200).send("OK");
+        res.setHeader('Content-Type', 'image/png');
+        canvas.pngStream().pipe(res);
+    }
+    img.onerror = err => {
+        console.log(err)
+    }
+    img2.onerror = err =>{
+        console.log(err);
+    }
+    
+    img2.src = './badges/test.png';
+    img.src = './badges/avatar2.png';
 };
