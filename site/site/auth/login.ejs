@@ -42,6 +42,7 @@
        axios.post('http://localhost:3000/auth', data, { withCredentials: true }).then(function(response){
             msg.innerHTML = response.data.msg;
             btn.classList.add("success");
+            setTimeout(function(){ window.location.href = "http://localhost:3001", 3000});
         }).catch(e=>{
             btn.classList.add("error");
             msg.innerHTML = e.response.data.msg;

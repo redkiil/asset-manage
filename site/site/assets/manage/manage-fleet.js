@@ -36,27 +36,27 @@ const operators = [
     {
         name: 'Augusto',
         registration: 8747,
-        funcao: 'Transbordo'
+        job: 'Transbordo'
     }, {
         name: 'Rafael',
         registration: 8735,
-        funcao: 'Transbordo'
+        job: 'Transbordo'
     }, {
         name: 'Vicente',
         registration: 7765,
-        funcao: 'Transbordo'
+        job: 'Transbordo'
     }, {
         name: 'Maria',
         registration: 6565,
-        funcao: 'Colhedor'
+        job: 'Colhedor'
     }, {
         name: 'Joao Victor',
         registration: 5452,
-        funcao: 'Transbordo'
+        job: 'Transbordo'
     }, {
         name: 'Edvan',
         registration: 3654,
-        funcao: 'Colhedor'
+        job: 'Colhedor'
     }
 ];
 const tractorsContainer = document.querySelector('.fleet-tractors');
@@ -67,14 +67,9 @@ operatorsContainer.addEventListener('dragover', dragOver);
 operatorsContainer.addEventListener('dragleave', dragLeave);
 operatorsContainer.addEventListener('dragenter', dragEnter);
 operatorsContainer.addEventListener('drop', dragDrop);
-
-window.onload = function(){
-    populateFleet(tractors);
-    this.populateOperators(operators);
-}
 /*function attachEvents(){
     const operators = document.querySelectorAll('.operators');
-    const frotas = document.querySelectorAll('.frotas,#op-container');
+    const fleets = document.querySelectorAll('.fleets,#op-container');
     const tractorsContainer = document.querySelector('.fleet-tractors');
     const harvesterContainer = document.querySelector('.fleet-harvesters');
 };
@@ -82,7 +77,7 @@ operators.forEach(function(elem){
     elem.addEventListener('dragstart', dragStart);
     elem.addEventListener('dragend', dragEnd);
 });
-frotas.forEach(function(elem){
+fleets.forEach(function(elem){
     elem.addEventListener('dragover', dragOver);
     elem.addEventListener('dragleave', dragLeave);
     elem.addEventListener('dragenter', dragEnter);
@@ -101,7 +96,7 @@ function dragOver(e){
     e.preventDefault();
     console.log(this.id);
     if(this.children.length >1  && !(this.id == "op-container")){
-        this.className = "frotas frotas-error";
+        this.className = "fleets fleets-error";
         return false;
     }
 }
@@ -109,17 +104,17 @@ function dragLeave(e){
     e.preventDefault();
     console.log(this.id);
     if(this.children.length >1  && !(this.id == "op-container")){
-        this.className = "frotas";
+        this.className = "fleets";
         return false;
     }
     if(!(this.id == "op-container")){
-        this.className = "frotas";
+        this.className = "fleets";
     }
 }
 function dragEnter(e){
     e.preventDefault();
     if(this.children.length >1  && !(this.id == "op-container")){
-        //this.className = "frotas frotas-error";
+        //this.className = "fleets fleets-error";
         return false;
     }
     if(!(this.id == "op-container")){
@@ -131,11 +126,11 @@ function dragDrop(e){
     console.log(this.children.length);
     let nodetoappend = (this.id != "op-container") ? this : operatorsList;
     if(this.children.length >1  && !(this.id == "op-container")){
-        this.className = "frotas";
+        this.className = "fleets";
         return false;
     }
     if(!(this.id == "op-container")){
-        this.className = "frotas";
+        this.className = "fleets";
     }
     const id = e.dataTransfer.getData("text/plain");
    
@@ -145,10 +140,10 @@ function dragDrop(e){
 function populateFleet(data){
     console.log("CU",data);
     data.forEach(function(elem){
-        //tractorsContainer.innerHTML +=  `<div class="frotas" id="${elem.fleetid}"><span>${elem.fleetid}</span></div>`;
+        //tractorsContainer.innerHTML +=  `<div class="fleets" id="${elem.fleetid}"><span>${elem.fleetid}</span></div>`;
         let mydiv = document.createElement('li');
         mydiv.setAttribute('id', elem.fleetid);
-        mydiv.setAttribute('class', 'frotas');
+        mydiv.setAttribute('class', 'fleets');
         mydiv.innerHTML = `<span>${elem.fleetid}</span>`;
         mydiv.addEventListener('dragover', dragOver);
         mydiv.addEventListener('dragleave', dragLeave);
@@ -164,7 +159,7 @@ function populateFleet(data){
 }
 function populateOperators(data){
     data.forEach(function(elem){
-        //tractorsContainer.innerHTML +=  `<div class="frotas" id="${elem.fleetid}"><span>${elem.fleetid}</span></div>`;
+        //tractorsContainer.innerHTML +=  `<div class="fleets" id="${elem.fleetid}"><span>${elem.fleetid}</span></div>`;
         let mydiv = document.createElement('li');
         mydiv.setAttribute('id', elem.registration);
         mydiv.setAttribute('class', 'operators');
@@ -176,9 +171,12 @@ function populateOperators(data){
         //let op-description = <div class="op-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus malesuada tristique dapibus</div>
         let opDescription = document.createElement('div');
         opDescription.setAttribute('class', 'op-description');
-        opDescription.innerHTML = `<span>Função:${elem.funcao} Status:Ativo</span>`
+        opDescription.innerHTML = `<span>Função:${elem.job} Status:Ativo</span>`
         
         operatorsList.appendChild(mydiv);
         mydiv.appendChild(opDescription);
     });
 }
+
+populateFleet(tractors);
+this.populateOperators(operators);

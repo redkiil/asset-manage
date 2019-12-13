@@ -42,8 +42,8 @@ exports.getByRegistration = (req, res, next) =>{
 }
 exports.createBadge = async (req, res) =>{
     var id = req.params.id;
-    let name = `AUGUSTO`;
-    let lastname = `NETO`;
+    let name = `NOME`;
+    let lastname = `PADRAO`;
     let rid = `${id}    *`;
     let setor = `AGRICOLA`;
     await User.findOne({ registration: id },'name sector').populate('sector').then(data=>{
@@ -51,38 +51,34 @@ exports.createBadge = async (req, res) =>{
         name = fullname[0].toUpperCase();
         lastname = fullname[1].toUpperCase();
         setor = data.sector.name.toUpperCase();
-        console.log(data)
     }).catch(e=>{
         console.log(e);
     });
-    var canvas = Canvas.createCanvas(300, 550)
+    var canvas = Canvas.createCanvas(300, 450)
     var ctx = canvas.getContext('2d')
-    const img = new Canvas.Image;
-    const img2 = new Canvas.Image;
-    img2.onload = () => {
-        ctx.drawImage(img2, 0, 0, 300, 550);
+    const userImage = new Canvas.Image;
+    const baseImage = new Canvas.Image;
+    baseImage.onload = () => {
+        ctx.drawImage(baseImage, 0, 0, 300, 450);
     }
-    img.onload = () => {
+    userImage.onload = () => {
         ctx.font = 'bold 22px Tahoma'
         ctx.textAlign = 'center';
-       
-       
-        ctx.fillText(name, 220, 200);
-        ctx.fillText(lastname, 220, 230);
-        ctx.fillText(rid, 220, 260);
-        ctx.fillText(setor, 150, 545);
-        ctx.drawImage(img, 5, 130, 130, 200);
-
+        ctx.fillText(name, 220, 180);
+        ctx.fillText(lastname, 220, 210);
+        ctx.fillText(rid, 220, 240);
+        ctx.font = 'bold 16px Tahoma'
+        ctx.fillText(setor, 150, 445);
+        ctx.drawImage(userImage, 5, 110, 130, 150);
         res.setHeader('Content-Type', 'image/png');
         canvas.pngStream().pipe(res);
     }
-    img.onerror = err => {
+    userImage.onerror = err => {
         console.log(err)
     }
-    img2.onerror = err =>{
+    baseImage.onerror = err =>{
         console.log(err);
     }
-    
-    img2.src = './badges/test.png';
-    img.src = './badges/avatar2.png';
+    baseImage.src = './badges/test.png';
+    userImage.src = './badges/avatar2.png';
 };

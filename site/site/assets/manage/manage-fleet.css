@@ -60,7 +60,7 @@
 #fleet-container{
     padding: 25px;
 }
-.frotas{
+.fleets{
     text-align: center;
     display: inline-block;
     vertical-align: top;
@@ -78,7 +78,7 @@
     background-repeat: no-repeat;
     background-image: url('plus-solid.svg');
 }
-.frotas span{
+.fleets span{
     display: inline-block;
     margin: 5px 0px;
 }
@@ -95,7 +95,7 @@
   left: 30%;
   color: rgba(0,0,0,.8);
 }*/
-.frotas-error{
+.fleets-error{
   border: 1px solid red;
 }
 .hover {
