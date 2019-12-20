@@ -8,22 +8,25 @@ const config = require('../config.json');
 const resource = require('./assets/resource');
 
 router.get('/home', veryfy, (req, res) => {
-    res.render('home/index', { page: 'inicial/index', registration: req.useregistration });
+    res.render('home/index', { page: 'inicial/index', api_url: config.API_URL, registration: req.useregistration });
 });
 router.get('/manage/fleet', veryfy, (req, res) => {
-    res.render('home/index', { page: 'manage/manage-fleet', registration: req.useregistration });
+    res.render('home/index', { page: 'manage/manage-fleet', api_url: config.API_URL,registration: req.useregistration });
 });
 router.get('/inicial', veryfy, (req, res) => {
-    res.render('home/index', { page: 'inicial/index', registration: req.useregistration });
+    res.render('home/index', { page: 'inicial/index', api_url: config.API_URL,registration: req.useregistration });
 });
 router.get('/frente', veryfy, (req, res) => {
     res.render('home/index', { page: 'frente/users', api_url: config.API_URL, registration: req.useregistration });
 });
 router.get('/login', (req, res) => {
-    res.render('auth/login', { page: 'manage/manage-fleet', registration: req.useregistration });
+    res.render('auth/login', { page: 'manage/manage-fleet', api_url: config.API_URL,registration: req.useregistration });
 });
 router.get('/calendar', veryfy, (req, res) => {
-    res.render('home/index', { page: 'calendario/index', registration: req.useregistration });
+    res.render('home/index', { page: 'calendario/index', api_url: config.API_URL,registration: req.useregistration });
+});
+router.get('/user/register', veryfy, (req, res) => {
+    res.render('home/index', { page: 'registeruser/index', api_url: config.API_URL, registration: req.useregistration });
 });
 router.get('/resource/:rsrc', resource);
 router.get('/', (req, res) => {

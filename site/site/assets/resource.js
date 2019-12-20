@@ -6,6 +6,8 @@ var rsrc = {
     }, frente: {
         'vaXfocSU0R': 'frente/frente.js',
         'BtNWxJ0hfD':  'frente/frente.css'
+    }, registeruser: {
+        'vzX3ocip31': 'registeruser/registeruser.js',
     }
 }
 module.exports = (req, res) => {

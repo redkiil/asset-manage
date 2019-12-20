@@ -9,14 +9,11 @@ const Sectors = mongoose.model("Sectors");
 const SubSectors = mongoose.model("SubSectors");
 
 exports.post = async (req, res, next) =>{
-    var usr = new User(req.body);
+    var data = req.body;
     
-    const sec = await Sectors.findOne({ sectorid: req.body.sector }).distinct('_id').lean();
-    const ssec = await SubSectors.findOne({ subsectorid: req.body.subsector }).distinct('_id').lean();
-    
-    usr.sector = mongoose.Types.ObjectId(sec[0]);  
-    usr.subsector = mongoose.Types.ObjectId(ssec[0]);
 
+
+    var usr = new User(data);
     usr.save().then(x=>{
         res.status(201).send({ message: 'user has been created.'});
     }).catch(e=>{
@@ -46,10 +43,11 @@ exports.createBadge = async (req, res) =>{
     let lastname = `PADRAO`;
     let rid = `${id}    *`;
     let setor = `AGRICOLA`;
+
     await User.findOne({ registration: id },'name sector').populate('sector').then(data=>{
         let fullname = data.name.split(" ");
         name = fullname[0].toUpperCase();
-        lastname = fullname[1].toUpperCase();
+        lastname = fullname[fullname.length-1].toUpperCase();
         setor = data.sector.name.toUpperCase();
     }).catch(e=>{
         console.log(e);

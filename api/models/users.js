@@ -1,8 +1,9 @@
 'use strict'
 
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
-
+const SALT_WORK_FACTOR = 10;
 const schema = new Schema({
     name:{
         type: String,
@@ -25,8 +26,27 @@ const schema = new Schema({
         required: true
     },dayoff:{
         type: Number,
+    },password:{
+        type: String,
+        require: true
     }
-
-
 });
+schema.pre('save', function(next) {
+    var user = this;
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+        if(err)return next(err);
+        bcrypt.hash(user.password, salt, function(err, hash){
+            if(err)return next(err);
+            user.password = hash;
+            next();
+        });
+    });
+});
+schema.methods.checkPassword = async function( candidatePass){
+    console.log(this.password);
+    console.log(candidatePass);
+    const match = bcrypt.compare(candidatePass, this.password);
+    return match;
+};
+
 module.exports = mongoose.model('Users', schema);

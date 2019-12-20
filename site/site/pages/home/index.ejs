@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/81e278144d.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../../static/home/home.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="sidebar">   
+            <img src="" class="avatar-img"/>
+            <ul id="menu">
+                <li><a href="../../inicial"><i class="fas fa-home"></i>Inicio</a></li>
+                <li><a href="../../frente"><i class="fas fa-users-cog"></i>Frente</a>
+                    <ul>
+                        <li><a href="#">Colaboradores</a></li>
+                        <li><a href="#">Frotas</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fas fa-users"></i>Colaboradores</a></li>
+                <li><a href="../../manage/fleet"><i class="fas fa-tractor"></i>Frota</a></li>
+                <li><a href="../../calendar"><i class="fas fa-calendar-alt"></i>Calendario</a></li>
+            </ul>
+        </nav>
+        <section class="content">
+            <%- include('../'+page) %>
+        </section>
+    </div>
+    <script>
+
+        var user_id = "<%- registration %>";
+        var API_URL = "<%- api_url %>";
+    </script>
+    <script src="../../static/home/home.js" src="text/javascript"></script>
+</body>
+</html>

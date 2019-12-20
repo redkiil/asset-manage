@@ -44,7 +44,7 @@
   border: 1px solid grey;
   font-size: 15px;
   box-shadow:inset 0px 0px 15px rgba(68,68,68,0.6);
-  z-index:100;
+ 
   visibility: hidden;
   opacity: 0;
   transition: 0.25s;

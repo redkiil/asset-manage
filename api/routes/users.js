@@ -7,7 +7,7 @@ const authMiddleware = require('../middlewares/auth')
 
 const userController = require('../controllers/users')
 
-router.post('/', authMiddleware, userController.post);
+router.post('/', userController.post);
 router.get('/', authMiddleware,userController.get);
 router.get('/:rid', userController.getByRegistration);
 router.get('/badge/:id', userController.createBadge);

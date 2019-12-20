@@ -7,6 +7,6 @@ const authMiddleware = require('../middlewares/auth')
 
 const sectorsController = require('../controllers/sectors')
 
-router.get('/', authMiddleware, sectorsController.sector);
-router.get('/subsectors', authMiddleware, sectorsController.subsector);
+router.get('/', sectorsController.sector);
+router.get('/subsectors', sectorsController.subsector);
 module.exports = router;

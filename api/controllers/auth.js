@@ -9,8 +9,9 @@ exports.post = async(req, res) =>{
     const { registration , password } = req.body;
     
     const usr = await User.findOne({ registration: registration });
+    const passok = await usr.checkPassword(password);
     
-    if(usr && (password === "oi")){
+    if(usr && passok){
         const token = jwt.sign({ user: usr.id}, authConfig.secret, {
             expiresIn: 86400
         });
@@ -39,5 +40,7 @@ exports.validateData = (req, res, next) =>{
 };
 exports.validateuser = async(req, res) => {
     const usr = await User.findOne({ _id: req.userid }, "registration");
+    if(!usr)
+        return res.status(403);
     return res.status(200).send({ registration: usr.registration });
 };
