@@ -19,6 +19,9 @@ router.get('/inicial', veryfy, (req, res) => {
 router.get('/frente', veryfy, (req, res) => {
     res.render('home/index', { page: 'frente/users', api_url: config.API_URL, registration: req.useregistration });
 });
+router.get('/frente/:id', veryfy, (req, res) => {
+    res.render('home/index', { page: 'frente/users', api_url: config.API_URL,  registration: req.useregistration, sectorid: req.params.id });
+});
 router.get('/login', (req, res) => {
     res.render('auth/login', { page: 'manage/manage-fleet', api_url: config.API_URL,registration: req.useregistration });
 });

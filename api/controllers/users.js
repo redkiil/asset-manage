@@ -8,11 +8,11 @@ const User = mongoose.model('Users');
 const Sectors = mongoose.model("Sectors");
 const SubSectors = mongoose.model("SubSectors");
 
-exports.post = async (req, res, next) =>{
+exports.post = (req, res, next) =>{
+
     var data = req.body;
-    
-
-
+    console.log("FIL", req.file);
+    console.log(data);
     var usr = new User(data);
     usr.save().then(x=>{
         res.status(201).send({ message: 'user has been created.'});
@@ -37,13 +37,20 @@ exports.getByRegistration = (req, res, next) =>{
         res.status(400).send({"message": "fail to fetch user "+ req.params.id });
     });
 }
+exports.geyBySubSector = (req, res, next) =>{
+    User.find({ subsector: req.params.ssectorid },'name registration').then(data=>{
+        console.log(data)
+        res.status(200).send(data);
+    }).catch(e=>{
+        res.status(400).send({"message": "fail to fetch users by "+ req.params.ssectorid });
+    });
+}
 exports.createBadge = async (req, res) =>{
     var id = req.params.id;
     let name = `NOME`;
     let lastname = `PADRAO`;
     let rid = `${id}    *`;
     let setor = `AGRICOLA`;
-
     await User.findOne({ registration: id },'name sector').populate('sector').then(data=>{
         let fullname = data.name.split(" ");
         name = fullname[0].toUpperCase();
@@ -78,5 +85,5 @@ exports.createBadge = async (req, res) =>{
         console.log(err);
     }
     baseImage.src = './badges/test.png';
-    userImage.src = './badges/avatar2.png';
+    userImage.src = path.resolve(__dirname, `../static/users/${id}.png`);
 };
