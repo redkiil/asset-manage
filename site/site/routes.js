@@ -17,10 +17,13 @@ router.get('/inicial', veryfy, (req, res) => {
     res.render('home/index', { page: 'inicial/index', api_url: config.API_URL,registration: req.useregistration });
 });
 router.get('/frente', veryfy, (req, res) => {
-    res.render('home/index', { page: 'frente/users', api_url: config.API_URL, registration: req.useregistration });
+    res.render('home/index', { page: 'frente/home', api_url: config.API_URL, registration: req.useregistration });
 });
-router.get('/frente/:id', veryfy, (req, res) => {
+router.get('/frente/:id/users', veryfy, (req, res) => {
     res.render('home/index', { page: 'frente/users', api_url: config.API_URL,  registration: req.useregistration, sectorid: req.params.id });
+});
+router.get('/frente/:id/vehicles', veryfy, (req, res) => {
+    res.render('home/index', { page: 'frente/vehicles', api_url: config.API_URL,  registration: req.useregistration, sectorid: req.params.id });
 });
 router.get('/login', (req, res) => {
     res.render('auth/login', { page: 'manage/manage-fleet', api_url: config.API_URL,registration: req.useregistration });
@@ -29,7 +32,13 @@ router.get('/calendar', veryfy, (req, res) => {
     res.render('home/index', { page: 'calendario/index', api_url: config.API_URL,registration: req.useregistration });
 });
 router.get('/user/register', veryfy, (req, res) => {
-    res.render('home/index', { page: 'registeruser/index', api_url: config.API_URL, registration: req.useregistration });
+    res.render('home/index', { page: 'manageuser/register', api_url: config.API_URL, registration: req.useregistration });
+});
+router.get('/user/edit/:id', veryfy, (req, res) => {
+    res.render('home/index', { page: 'manageuser/register', api_url: config.API_URL, registration: req.useregistration, user_edit: req.params.id });
+});
+router.get('/vehicle/register', veryfy, (req, res) => {
+    res.render('home/index', { page: 'registervehicle/index', api_url: config.API_URL, registration: req.useregistration });
 });
 router.get('/resource/:rsrc', resource);
 router.get('/', (req, res) => {

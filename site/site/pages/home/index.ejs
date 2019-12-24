@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://kit.fontawesome.com/81e278144d.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="../../static/home/home.css">
-    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <link rel="stylesheet" href="../../resource/p4aZuisOPk">
 </head>
 <body>
     <div class="wrapper">
@@ -15,14 +14,22 @@
             <img src="" class="avatar-img"/>
             <ul id="menu">
                 <li><a href="../../inicial"><i class="fas fa-home"></i>Inicio</a></li>
-                <li><a href="../../frente"><i class="fas fa-users-cog"></i>Frente</a>
+                <li><a href="#"><i class="fas fa-users-cog"></i>Frente</a>
                     <ul>
                         <li><a href="#" id="subsector-workers">Colaboradores</a></li>
-                        <li><a href="#">Frotas</a></li>
+                        <li><a href="#" id="subsector-vehicles">Frotas</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="fas fa-users"></i>Colaboradores</a></li>
-                <li><a href="../../manage/fleet"><i class="fas fa-tractor"></i>Frota</a></li>
+                <li><a href="#"><i class="fas fa-users"></i>Colaboradores</a>
+                    <ul>
+                        <li><a href="../../user/register" id="subsector-workers">Registrar</a></li>
+                    </ul>
+                </li>
+                <li><a href="../../manage/fleet"><i class="fas fa-tractor"></i>Frota</a>
+                    <ul>
+                        <li><a href="../../vehicle/register" id="subsector-workers">Registrar</a></li>
+                    </ul>
+                </li>
                 <li><a href="../../calendar"><i class="fas fa-calendar-alt"></i>Calendario</a></li>
             </ul>
         </nav>
@@ -35,6 +42,6 @@
         var user_id = "<%- registration %>";
         var API_URL = "<%- api_url %>";
     </script>
-    <script src="../../static/home/home.js" src="text/javascript"></script>
+    <script src="../../resource/p3Oriz1koj" src="text/javascript"></script>
 </body>
 </html>

@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const fs = require('fs');
+const path = require('path');
 const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
 const schema = new Schema({
@@ -28,11 +30,37 @@ const schema = new Schema({
         type: Number,
     },password:{
         type: String,
-        require: true
+        required: true
+    },job:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Jobs",
+        required: true
+    },fleetid:{
+        type: Number,
+        ref: "Vehicles"
     }
 });
 schema.pre('save', function(next) {
     var user = this;
+    
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+        if(err)return next(err);
+        bcrypt.hash(user.password, salt, function(err, hash){
+            if(err)return next(err);
+            user.password = hash;
+            next();
+        });
+    });
+});
+schema.pre('replaceOne', function(next) {
+    var user = this._update;
+    if(user.avatarimg == 'undefined'){
+        let dir = path.resolve(__dirname, `../static/users/${user.oldregistration}.png`);
+        let newdir = path.resolve(__dirname, `../static/users/${user.registration}.png`);
+        if (fs.existsSync(dir)) {
+            fs.renameSync(dir, newdir);
+        }
+    }
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
         if(err)return next(err);
         bcrypt.hash(user.password, salt, function(err, hash){
@@ -48,5 +76,12 @@ schema.methods.checkPassword = async function( candidatePass){
     const match = bcrypt.compare(candidatePass, this.password);
     return match;
 };
-
+schema.virtual('vehicle',{
+    ref: 'Vehicles',
+    localField: 'fleetid',
+    foreignField: 'fleetid',
+    justOne: true,
+})
+schema.set('toObject', { virtuals: true });
+schema.set('toJSON', { virtuals: true });
 module.exports = mongoose.model('Users', schema);

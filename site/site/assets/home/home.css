@@ -17,11 +17,6 @@ body{
     z-index: 150;
     margin: 0px;
 }
-.sidebar h2,p{
-    color: aliceblue;
-    font-size: 18px;
-    font-weight: bold;
-}
 .sidebar ul{
     margin-top: 60px;
     width: 280px;

@@ -8,6 +8,11 @@ var rsrc = {
         'BtNWxJ0hfD':  'frente/frente.css'
     }, registeruser: {
         'vzX3ocip31': 'registeruser/registeruser.js',
+    }, registervehicle:{
+        'ioXoasUUAz': 'registervehicle/file.js',
+    },home:{
+        'p3Oriz1koj': 'home/home.js',
+        'p4aZuisOPk': 'home/home.css'
     }
 }
 module.exports = (req, res) => {

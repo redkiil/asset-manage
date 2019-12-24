@@ -15,8 +15,7 @@ schema.virtual('members',{
     localField: '_id',
     foreignField: 'sectorid',
     justOne: false,
-    //options: { sort: { name: -1 }, limit: 5 } // Query options, see http://bit.ly/mongoose-query-options
-})
+});
 schema.set('toObject', { virtuals: true });
 schema.set('toJSON', { virtuals: true });
 module.exports = mongoose.model('Sectors', schema);

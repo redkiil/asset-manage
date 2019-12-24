@@ -9,10 +9,7 @@ const Sectors = mongoose.model("Sectors");
 const SubSectors = mongoose.model("SubSectors");
 
 exports.post = (req, res, next) =>{
-
     var data = req.body;
-    console.log("FIL", req.file);
-    console.log(data);
     var usr = new User(data);
     usr.save().then(x=>{
         res.status(201).send({ message: 'user has been created.'});
@@ -23,23 +20,29 @@ exports.post = (req, res, next) =>{
 exports.get = (req, res, next)=>{
     User.find({}).
     populate('sector').
-    populate('subsector').then(data=>{
+    populate('subsector').populate('vehicle').then(data=>{
         return res.status(200).send(data);
     }).catch(e=>{
         return res.status(401).send("error fetching users "+ e);
     })
 };
 exports.getByRegistration = (req, res, next) =>{
-    User.findOne({ registration: req.params.rid },'name sector subsector').populate('sector').populate('subsector').select("-_id").then(data=>{
-        console.log(data)
+    User.findOne({ registration: req.params.rid },'name sector subsector registration job fleetid').populate('sector').populate('subsector').populate('job').populate('vehicle').select("-_id").then(data=>{
         res.status(200).send(data);
     }).catch(e=>{
         res.status(400).send({"message": "fail to fetch user "+ req.params.id });
     });
 }
+exports.put = (req, res, next)=>{
+    req.body.oldregistration = req.params.rid;
+    User.replaceOne({ registration: req.params.rid }, req.body, { new: true }).then(r=>{
+        res.status(200).send(r);
+    }).catch(e=>{
+        res.status(400).send(e);
+    });
+};
 exports.geyBySubSector = (req, res, next) =>{
-    User.find({ subsector: req.params.ssectorid },'name registration').then(data=>{
-        console.log(data)
+    User.find({ subsector: req.params.ssectorid },'name registration fleetid job').populate('vehicle').populate('job').select("-_id").then(data=>{
         res.status(200).send(data);
     }).catch(e=>{
         res.status(400).send({"message": "fail to fetch users by "+ req.params.ssectorid });
@@ -85,5 +88,7 @@ exports.createBadge = async (req, res) =>{
         console.log(err);
     }
     baseImage.src = './badges/test.png';
-    userImage.src = path.resolve(__dirname, `../static/users/${id}.png`);
+    let dirimg = path.resolve(__dirname, `../static/users/${id}.png`);
+    fs.existsSync(dirimg) ? userImage.src = dirimg : userImage.src = './badges/default-avatar.png';
+   
 };

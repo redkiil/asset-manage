@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+#workers-container{
+    padding-top: 15px;
+}
+#list-workers{
+    list-style: none;
+}
+.gear{
+    position: absolute;
+    color: black;
+    margin-left: 80px;
+    margin-top: -17px;
+}
+#workers-container ul li{
+    display: inline-block;
+    height: 140px;
+    width: 180px;
+    background-color: cadetblue;
+    padding: 10px;
+    margin-left: 15px;
+    overflow: hidden;
+}
+#workers-container ul li span{
+    font-size: 12px;
+}
+#workers-container ul li span p{
+    margin-top: 5px;
+    font-weight: bold;
+}
+.user-avatar{
+    height: 140px;
+    width: 80px;
+    margin-right: 10px;
+    float: left;
+}

@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    sector:{
+    sectorid:{
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sectors',
         required: true
     },name:{
         type: String,
@@ -13,4 +14,7 @@ const schema = new Schema({
         default: "N/A"
     }
 });
+
+schema.set('toObject', { virtuals: true });
+schema.set('toJSON', { virtuals: true });
 module.exports = mongoose.model('SubSectors', schema);

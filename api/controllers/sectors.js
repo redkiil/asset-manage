@@ -9,9 +9,23 @@ exports.sector = (req, res) => {
         res.status(401).send({ error: e.data });
     })
 };
+exports.sectorById = (req, res) => {
+    Sectors.findOne({ _id: req.params.id }).then(r=>{
+        res.status(200).send(r);
+    }).catch(e=>{
+        res.status(401).send({ error: e.data });
+    })
+};
 exports.subsector = (req, res) => {
-    SubSectors.find().populate("sector").then(data =>{
+    SubSectors.find({}).populate("sector").then(data =>{
         res.status(200).send(data);
+    }).catch(e=>{
+        res.status(401).send({ error: e.data });
+    })
+};
+exports.subsectorById = (req, res) => {
+    SubSectors.findOne({ _id: req.params.id }).populate('sectorid').then(r=>{
+        res.status(200).send(r);
     }).catch(e=>{
         res.status(401).send({ error: e.data });
     })

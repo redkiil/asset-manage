@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>    
         <link rel="stylesheet" type="text/css" href="../../static/login/login.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
@@ -14,7 +14,7 @@
 
 <div id="form">
         <i class="fas fa-user-friends fa-4x"></i>
-<form action="" id="loginform">
+<form action="#" id="loginform">
   <label class="form-item">Matricula:
   <input type="text" name="registration" placeholder="0000" id="registration"></label>
   <label class="form-item">Senha:
@@ -31,7 +31,7 @@
     var btn = document.getElementById("btn-submit");
     let msg = document.getElementById("msg");
     btn.addEventListener('click', function(e){
-        event.preventDefault();
+        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
         let data = {
             registration: form.elements.registration.value,
             password: form.elements.password.value

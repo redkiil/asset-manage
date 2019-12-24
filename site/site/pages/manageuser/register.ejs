@@ -1,5 +1,6 @@
 <script>
   var API_URL = "<%- api_url %>";
+  var USER_TOEDIT =  "<%= (locals.user_edit) ? user_edit : ''; %>";
  </script>
 <h2>Registrar Colaborador</h2>
 
@@ -29,9 +30,14 @@
     <option>Choose a subsector</option>
   </select>
   <br><br>
-
+  Funcão:<br>
+  <select id="selectJob" name="job">
+    <option>Choose a Job</option>
+  </select>
+  <br><br>
+  Frota:<br>
+  <input type="text" name="fleetid" placeholder="Ex: 1066" id="fleetid">
+  <br><br>
   <input type="submit" id="btnsend" value="Send" name="send">
 </form> 
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="../../resource/vzX3ocip31" type="text/javascript"></script>

@@ -1,17 +1,35 @@
 
 var selectSectorField = document.getElementById('selectSector')
 var selectSubSectorField = document.getElementById('selectSubSector');
+var selectJobField = document.getElementById('selectJob');
+var matriculaField = document.getElementById('registration');
+var nameField = document.getElementById('name');
+var birthField = document.getElementById('birth');
+var fleetField = document.getElementById('fleetid');
 var members = [];
 axios.get(`${API_URL}/sectors`).then(function(response){
         console.log(response.data);
         for(var i = 0; i < response.data.length; ++i){
             var opt = document.createElement("option");
-            
+            opt.setAttribute('id', response.data[i]._id);
             opt.text = response.data[i].name;
             opt.value = response.data[i]._id;
             selectSectorField.appendChild(opt);
 
             members.push(response.data[i].members);
+
+        }
+    }).catch(e=>{
+        
+    });
+    axios.get(`${API_URL}/jobs`).then(function(response){
+        console.log(response.data);
+        for(var i = 0; i < response.data.length; ++i){
+            var opt = document.createElement("option");
+            opt.setAttribute('id', response.data[i]._id);
+            opt.text = response.data[i].jobname;
+            opt.value = response.data[i]._id;
+            selectJobField.appendChild(opt);
 
         }
     }).catch(e=>{
@@ -39,7 +57,8 @@ btn.addEventListener("click", function(e){
 
         if(!tes)return;
     })
-    axios.post(`${API_URL}/users`, zzform)
+    if(USER_TOEDIT){
+        axios.put(`${API_URL}/users/${USER_TOEDIT}`, zzform)
         .then(function (response) {
         console.log("RE", response);
         })
@@ -48,6 +67,17 @@ btn.addEventListener("click", function(e){
         console.log(error.response.status);
         console.log(error.response.headers);
     });
+    }else{
+        axios.post(`${API_URL}/users`, zzform)
+            .then(function (response) {
+            console.log("RE", response);
+            })
+            .catch(function (error) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        });
+    } 
 });
 selectSector.addEventListener("change", function(e){
     e.preventDefault();
@@ -63,6 +93,34 @@ selectSector.addEventListener("change", function(e){
 
         }
 });
+
+window.onload = function(){
+    if(USER_TOEDIT){
+        axios.get(`${API_URL}/users/${USER_TOEDIT}`).then(function(response){
+            console.log("THE", response)
+            let sectorIndex = document.querySelector(`#selectSector option[value='${response.data.sector._id}']`);
+            selectSectorField.selectedIndex = sectorIndex.index;
+            selectSector.dispatchEvent(new Event('change'));
+            let subsectorIndex = document.querySelector(`#selectSubSector option[value='${response.data.subsector._id}']`);
+            selectSubSectorField.selectedIndex = subsectorIndex.index;
+            let jobIndex = document.querySelector(`#selectJob option[value='${response.data.job._id}']`);
+            selectJobField.selectedIndex = jobIndex.index;
+            matriculaField.value = response.data.registration;
+            nameField.value = response.data.name;
+            fleetField.value = response.data.fleetid;
+            /*for(var i = 0; i < response.data.length; ++i){
+                var opt = document.createElement("option");
+                
+                opt.text = response.data[i].jobname;
+                opt.value = response.data[i]._id;
+                selectJobField.appendChild(opt);
+    
+            }*/
+        }).catch(e=>{
+            
+        });
+    }
+  }
 function localeDataToISO(date){
     let dates = date.split("/").map(Number);
     var d = new Date(dates[2], dates[1] - 1, dates[0]);

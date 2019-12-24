@@ -13,6 +13,8 @@ mongoose.connect('mongodb+srv://redkiil:redkiil@cluster0-aml3p.mongodb.net/test?
 const Users = require('./models/users');
 const Sectors = require('./models/sectors');
 const SubSectors = require("./models/subsectors");
+const Vehicles = require('./models/vehicles');
+const Jobs = require('./models/jobs');
 // Add headers
 app.use(function (req, res, next) {
 
@@ -40,11 +42,14 @@ const mainroute = require('./routes/index');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const sectors  = require('./routes/sectors');
-
+const vehicles = require('./routes/vehicles');
+const jobs = require('./routes/jobs');
 
 app.use('/', mainroute);
 app.use('/users', users)
 app.use('/auth', auth);
 app.use('/sectors', sectors);
+app.use('/vehicles', vehicles);
+app.use('/jobs', jobs);
 
 module.exports = app;
