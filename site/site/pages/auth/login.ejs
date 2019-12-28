@@ -3,85 +3,25 @@
 <html>
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>    
-        <link rel="stylesheet" type="text/css" href="../../static/login/login.css">
+        <link rel="stylesheet" type="text/css" href="../../resource/supjhz221z">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
         <script src="https://kit.fontawesome.com/81e278144d.js" crossorigin="anonymous"></script>
         <title>Login Page - Welcome</title>
     </head>
 <body>
-
-
-<div id="form">
-        <i class="fas fa-user-friends fa-4x"></i>
-<form action="#" id="loginform">
-  <label class="form-item">Matricula:
-  <input type="text" name="registration" placeholder="0000" id="registration"></label>
-  <label class="form-item">Senha:
-  <input type="password" name="password" placeholder="123456" id="password"></label>
-  <button class="btn-submit" id="btn-submit">Entrar</button>
-  <p id="msg"></p>
-  <input type="button" id="logout" value="Logout">
-</form>
-</div>
-
-
-<script>
-    var form = document.getElementById("loginform");
-    var btn = document.getElementById("btn-submit");
-    let msg = document.getElementById("msg");
-    btn.addEventListener('click', function(e){
-        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
-        let data = {
-            registration: form.elements.registration.value,
-            password: form.elements.password.value
-        };
-        if(!validateData(data)) return false;
-        btn.classList.add("active");
-        btn.disabled = true;
-       axios.post('http://localhost:3000/auth', data, { withCredentials: true }).then(function(response){
-            msg.innerHTML = response.data.msg;
-            btn.classList.add("success");
-            setTimeout(function(){ window.location.href = "http://localhost:3001", 3000});
-        }).catch(e=>{
-            btn.classList.add("error");
-            msg.innerHTML = e.response.data.msg;
-            setTimeout(function(){
-                btn.classList.remove("error");
-                btn.classList.remove("active");
-                btn.disabled = false;
-            }, 2000);
-        });
-
-    });
-    let logoutbtn = document.getElementById("logout");
-    logoutbtn.addEventListener("click", function(e){
-        e.preventDefault();
-        axios.get('http://localhost:3000/auth/logout', { withCredentials: true }).then(function(response){
-            msg.innerHTML = response.data.msg;
-        }).catch(e=>{
-
-            msg.innerHTML = e.response.data.msg;
-        });
-    });
-    let validateData = (values) =>{
-        if(!values.registration){
-            msg.innerHTML = "erro - matricula vazio";
-            return false;
-        }
-        let regexp = /^[0-9]{4}$/;
-        let okregistration = regexp.test(values.registration);
-        if(!okregistration){
-            msg.innerHTML = "erro - matricula invalida";
-            return false;
-        }
-        if(!values.password){
-            msg.innerHTML = "erro - senha vazia";
-            return false;
-        }
-        return true;
-    }
-</script>
-
+    <div id="form">
+        <form action="#" id="loginform">
+            <i class="fas fa-users-cog fa-4x user-icon"></i>
+          <label class="form-item"><i class="fas fa-portrait"></i>Matricula:
+          <input type="text" name="registration" id="registration"></label>
+          <label class="form-item"><i class="fas fa-lock"></i>Senha:
+          <input type="password" name="password" id="password"></label>
+          <button class="btn-submit" id="btn-submit">Entrar</button>
+          <p id="msg"></p>
+          <input type="button" id="logout" value="Logout">
+        </form>
+        </div>
+<script src="../resource/ibuyedgado" type="text/javascript"></script>
 </body>
 </html>

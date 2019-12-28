@@ -30,7 +30,7 @@ exports.validateData = (req, res, next) =>{
     const { registration , password } = req.body;
     if(!registration)
         return  res.status(400).send({ msg: "campo matricula bazio"});
-    let regexp = /^[0-9]{4}$/;
+    let regexp = /^[0-9]{4,5}$/;
     let okregistration = regexp.test(registration);
     if(!okregistration)
         return  res.status(400).send({ msg: "formato matricula invalido"});

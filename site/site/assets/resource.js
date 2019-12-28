@@ -13,6 +13,13 @@ var rsrc = {
     },home:{
         'p3Oriz1koj': 'home/home.js',
         'p4aZuisOPk': 'home/home.css'
+    },auth:{
+        'asih123iza': 'auth/changepass.js',
+        'jp2zzzj22a': 'auth/changepass.css',
+        'supjhz221z': 'auth/login.css',
+        'ibuyedgado': 'auth/login.js',
+    },defines:{
+        'jpm97lkzLL': 'defines.js',
     }
 }
 module.exports = (req, res) => {

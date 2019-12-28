@@ -7,12 +7,22 @@ const path = require('path');
 const User = mongoose.model('Users');
 const Sectors = mongoose.model("Sectors");
 const SubSectors = mongoose.model("SubSectors");
+const Tokens = mongoose.model('Tokens');
+const jwt = require('jsonwebtoken');
+const authConfig = require('../auth.json');
+const crypto = require('crypto');
 
 exports.post = (req, res, next) =>{
     var data = req.body;
+    data.password = "blank_to";
     var usr = new User(data);
+    console.log("OASKD", authConfig.register_secret);
+    const asd = crypto.randomBytes(16).toString("hex");
+    const token = jwt.sign({ to_user: data.registration}, authConfig.register_secret, {
+        expiresIn: 86400
+    , jwtid: asd});
     usr.save().then(x=>{
-        res.status(201).send({ message: 'user has been created.'});
+        res.status(201).send({ message: 'user has been created.', token: token});
     }).catch(e=>{
         res.status(400).send({ message: 'failed in create user', data: e})
     });
@@ -27,7 +37,7 @@ exports.get = (req, res, next)=>{
     })
 };
 exports.getByRegistration = (req, res, next) =>{
-    User.findOne({ registration: req.params.rid },'name sector subsector registration job fleetid').populate('sector').populate('subsector').populate('job').populate('vehicle').select("-_id").then(data=>{
+    User.findOne({ registration: req.params.rid }).populate('sector').populate('subsector').populate('job').populate('vehicle').select("-_id -password").then(data=>{
         res.status(200).send(data);
     }).catch(e=>{
         res.status(400).send({"message": "fail to fetch user "+ req.params.id });
@@ -90,5 +100,27 @@ exports.createBadge = async (req, res) =>{
     baseImage.src = './badges/test.png';
     let dirimg = path.resolve(__dirname, `../static/users/${id}.png`);
     fs.existsSync(dirimg) ? userImage.src = dirimg : userImage.src = './badges/default-avatar.png';
-   
 };
+
+exports.changePassword = async (req, res, next) => {
+    let rcv_token = req.params.token;
+    let new_password = req.body.new_pass;
+    try{
+        let token = await jwt.verify(rcv_token, authConfig.register_secret, (e,d) => { return {e,d}; });
+        if(token.e)return res.status(400).send({ message: token.e.message });
+        let token_exist = await Tokens.findOne({ jti: token.d.jti });
+        if(token_exist)return res.status(400).send({ message: 'this token has already been used' });
+        let dojob = await User.findOneAndUpdate({ registration: token.to_user }, { password: new_password }).exec();
+        let rresult = new Tokens(token.d).save();
+        res.status(200).send({ message: 'senha alterada com sucesso'});
+    }catch(e){
+        res.status(400).send({ message: e});
+    }
+}
+exports.validateToken = (req, res, next) => {
+    let rcv_token = req.params.token;
+    jwt.verify(rcv_token, authConfig.register_secret, (err, decoded) =>{
+        if(err) return res.status(401).send({ message: 'token invalid'});
+        res.status(200).send(decoded);
+    });
+}

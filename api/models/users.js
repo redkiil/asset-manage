@@ -70,6 +70,18 @@ schema.pre('replaceOne', function(next) {
         });
     });
 });
+schema.pre('findOneAndUpdate', function(next) {
+    var user = this._update;
+    console.log(this);
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+        if(err)return next(err);
+        bcrypt.hash(user.password, salt, function(err, hash){
+            if(err)return next(err);
+            user.password = hash;
+            next();
+        });
+    });
+});
 schema.methods.checkPassword = async function( candidatePass){
     console.log(this.password);
     console.log(candidatePass);

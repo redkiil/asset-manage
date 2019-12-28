@@ -34,6 +34,9 @@ router.get('/calendar', veryfy, (req, res) => {
 router.get('/user/register', veryfy, (req, res) => {
     res.render('home/index', { page: 'manageuser/register', api_url: config.API_URL, registration: req.useregistration });
 });
+router.get('/user/changepass/:token', (req, res) => {
+    res.render('auth/changepass', { page: 'manageuser/register', api_url: config.API_URL, the_token: req.params.token });
+});
 router.get('/user/edit/:id', veryfy, (req, res) => {
     res.render('home/index', { page: 'manageuser/register', api_url: config.API_URL, registration: req.useregistration, user_edit: req.params.id });
 });

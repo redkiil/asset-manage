@@ -18,10 +18,13 @@ var storage = multer.diskStorage({
   })
 const upload = multer({ storage: storage});
 
-router.post('/', upload.single('avatarimg'), userController.post);
+router.post('/generatetoken', upload.single('avatarimg'), userController.post);
 router.get('/', authMiddleware,userController.get);
 router.get('/:rid', userController.getByRegistration);
 router.put('/:rid', upload.single('avatarimg'), userController.put);
 router.get('/badge/:id', userController.createBadge);
 router.get('/subsector/:ssectorid', userController.geyBySubSector);
+router.put('/changepassword/:token', userController.changePassword);
+router.get('/validatetoken/:token', userController.validateToken);
+
 module.exports = router;
