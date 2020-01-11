@@ -18,9 +18,40 @@ exports.post = (req, res, next) => {
     });
 }
 exports.get = (req, res, next) => {
-    Vehicles.find({}).then(r=>{
+    Vehicles.find({}).sort({fleetid: 'ascending'}).then(r=>{
         res.status(200).send(r);
     }).catch(e=>{
+        res.status(400).send({message: e});
+    })
+}
+exports.delete = (req, res, next) => {
+    Vehicles.deleteMany({ fleetid: { $in: req.params.id }}).then(r=>{
+        res.status(200).send(r);
+    }).catch(e=>{
+        res.status(400).send({message: e});
+    })
+}
+exports.put = (req, res, next) => {
+    Vehicles.findOneAndUpdate({ fleetid: req.params.id }, req.body).then(r=>{
+        res.status(200).send(r);
+    }).catch(e=>{
+        res.status(400).send({message: e});
+    })
+}
+exports.geyByFleet = (req, res, next) => {
+    Vehicles.findOne({ fleetid: req.params.id }).then(r=>{
+        res.status(200).send(r);
+    }).catch(e=>{
+        res.status(400).send({message: e});
+    })
+}
+exports.geyBySubSector = (req, res, next) => {
+    let subsecid = req.params.ssid;
+    console.log("PS", subsecid);
+    Vehicles.find({ subsector: subsecid }).sort({fleetid: 'ascending'}).then(r=>{
+        res.status(200).send(r);
+    }).catch(e=>{
+        console.log(e);
         res.status(400).send({message: e});
     })
 }

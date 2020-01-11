@@ -1,4 +1,7 @@
 
+var btn = document.getElementById("btnsend");
+var form = document.getElementById("registrarForm");
+
 var selectSectorField = document.getElementById('selectSector')
 var selectSubSectorField = document.getElementById('selectSubSector');
 var selectJobField = document.getElementById('selectJob');
@@ -7,6 +10,8 @@ var nameField = document.getElementById('name');
 var birthField = document.getElementById('birth');
 var fleetField = document.getElementById('fleetid');
 var tokenField = document.getElementById('token');
+const avatarField = document.getElementById('avatarimg');
+const previewAvatar = document.getElementById('preview-avatar');
 
 var members = [];
 axios.get(`${API_URL}/sectors`).then(function(response){
@@ -37,8 +42,6 @@ axios.get(`${API_URL}/sectors`).then(function(response){
     }).catch(e=>{
         
     });
-var btn = document.getElementById("btnsend");
-var form = document.getElementById("registrarForm");
 btn.addEventListener("click", function(e){
     e.preventDefault();
     var obj = {};
@@ -53,7 +56,7 @@ btn.addEventListener("click", function(e){
             zzform.append(fname, fvalue);
         }else if(fname == 'avatarimg'){
             zzform.append('avatarimg', data.files[0]);
-        }else{
+        }else if(fname){
             zzform.append(fname, fvalue);
         }
 
@@ -61,24 +64,18 @@ btn.addEventListener("click", function(e){
     })
     if(USER_TOEDIT){
         axios.put(`${API_URL}/users/${USER_TOEDIT}`, zzform).then(function (response) {
-            console.log("REEDIT", response);
-        })
-        .catch(function (error) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-    });
-    }else{
-        axios.post(`${API_URL}/users/generatetoken`, zzform).then(function (response) {
-                var base_url = window.location.origin;
-                console.log(base_url, tokenField);
-                tokenField.value = `${base_url}/user/changepass/${response.data.token}`;
-            })
-            .catch(function (error) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+            document.querySelector('.feedback-msg').innerHTML = `Usuario editado com sucesso.`;
+        }).catch(function (error) {
+            document.querySelector('.feedback-msg').innerHTML = `error: ${error.message}`;
         });
+    }else{
+        axios.post(`${API_URL}/users/createuser`, zzform).then(function (response) {
+                var base_url = window.location.origin;
+                tokenField.value = `${base_url}/user/changepass/${response.data.token}`;
+                document.querySelector('.feedback-msg').innerHTML = "Usuario cadastrado com sucesso, envie o link acima para o usuario.";
+            }).catch(function (error) {
+                document.querySelector('.feedback-msg').innerHTML = `error: ${error.message}`;
+             });
     } 
 });
 selectSector.addEventListener("change", function(e){
@@ -95,7 +92,10 @@ selectSector.addEventListener("change", function(e){
 
         }
 });
-
+avatarField.addEventListener('change', (e) => {
+    e.preventDefault();
+    previewAvatar.src = URL.createObjectURL(event.target.files[0]);
+});
 window.onload = function(){
     if(USER_TOEDIT){
         axios.get(`${API_URL}/users/${USER_TOEDIT}`).then(function(response){
@@ -119,6 +119,7 @@ window.onload = function(){
                 selectJobField.appendChild(opt);
     
             }*/
+            btn.disabled = false;
         }).catch(e=>{
             
         });

@@ -1,7 +1,8 @@
 <title>Document</title>
 <script>
   var API_URL = "<%- api_url %>";
- </script>
+  var VEH_TOEDIT =  "<%= (locals.veh_edit) ? veh_edit : ''; %>";
+</script>
 <h2>Registrar Veiculo</h2>
 
 <form action="#" id="registerVehicle">
@@ -10,9 +11,18 @@
   <br>
   Modelo:<br>
   <input type="text" name="model" id="model" placeholder="Ex: Case Puma 225">
-    <br>
+  <br>
+  Setor:<br>
+  <select id="selectSector" name="sector">
+    <option>Choose a sector</option>
+  </select>
+  <br>
+  Frente:<br>
+  <select id="selectSubSector" name="subsector">
+    <option>Choose a subsector</option>
+  </select>
   <input type="submit" id="btnsend" value="Send" name="send">
-</form> 
-
+  <input type="submit" id="btndel" value="Deletar" name="Deletar">
+</form>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="../../resource/ioXoasUUAz" type="text/javascript"></script>

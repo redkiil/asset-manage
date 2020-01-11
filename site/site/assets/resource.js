@@ -5,9 +5,12 @@ var rsrc = {
         'Qgz0uwgiu4': 'calendario/calendario.css'
     }, frente: {
         'vaXfocSU0R': 'frente/frente.js',
-        'BtNWxJ0hfD':  'frente/frente.css'
+        'BtNWxJ0hfD':  'frente/frente.css',
+        'oas2hASUIO': 'frente/vehicles.js',
+        'aso22zka45': 'frente/vehicles.css'
     }, registeruser: {
         'vzX3ocip31': 'registeruser/registeruser.js',
+        'a39sjiios3': 'registeruser/registeruser.css'
     }, registervehicle:{
         'ioXoasUUAz': 'registervehicle/file.js',
     },home:{
@@ -18,6 +21,8 @@ var rsrc = {
         'jp2zzzj22a': 'auth/changepass.css',
         'supjhz221z': 'auth/login.css',
         'ibuyedgado': 'auth/login.js',
+        '1ui2mals21': 'auth/recoverpass.css',
+        'ef25n45sad': 'auth/recoverpass.js'
     },defines:{
         'jpm97lkzLL': 'defines.js',
     }

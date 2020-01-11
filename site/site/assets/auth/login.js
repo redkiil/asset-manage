@@ -11,28 +11,17 @@ var form = document.getElementById("loginform");
         btn.classList.add("active");
         btn.disabled = true;
        axios.post('http://localhost:3000/auth', data, { withCredentials: true }).then(function(response){
-            msg.innerHTML = response.data.msg;
+            msg.innerHTML = response.data.message;
             btn.classList.add("success");
             setTimeout(function(){ window.location.href = "http://localhost:3001", 3000});
         }).catch(e=>{
             btn.classList.add("error");
-            msg.innerHTML = e.response.data.msg;
+            msg.innerHTML = e.response.data.message;
             setTimeout(function(){
                 btn.classList.remove("error");
                 btn.classList.remove("active");
                 btn.disabled = false;
             }, 2000);
-        });
-
-    });
-    let logoutbtn = document.getElementById("logout");
-    logoutbtn.addEventListener("click", function(e){
-        e.preventDefault();
-        axios.get('http://localhost:3000/auth/logout', { withCredentials: true }).then(function(response){
-            msg.innerHTML = response.data.msg;
-        }).catch(e=>{
-
-            msg.innerHTML = e.response.data.msg;
         });
     });
     let validateData = (values) =>{

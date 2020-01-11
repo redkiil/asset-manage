@@ -7,6 +7,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
+app.use(function (req, res, next){
+    //res.setHeader('Cache-Control', 'max-age=3600, must-revalidate');
+    next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

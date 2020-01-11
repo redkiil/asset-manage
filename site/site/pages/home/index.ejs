@@ -7,7 +7,12 @@
     <script src="https://kit.fontawesome.com/81e278144d.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <link rel="stylesheet" href="../../resource/p4aZuisOPk">
+    <script>
+        var user_id = "<%- registration %>";
+        var API_URL = "<%- api_url %>";
+    </script>
 </head>
+
 <body>
     <div class="wrapper">
         <nav class="sidebar">   
@@ -37,11 +42,6 @@
             <%- include('../'+page) %>
         </section>
     </div>
-    <script>
-
-        var user_id = "<%- registration %>";
-        var API_URL = "<%- api_url %>";
-    </script>
     <script src="../../resource/p3Oriz1koj" src="text/javascript"></script>
 </body>
 </html>

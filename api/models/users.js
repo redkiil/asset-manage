@@ -27,7 +27,7 @@ const schema = new Schema({
         ref: "SubSectors",
         required: true
     },dayoff:{
-        type: Number,
+        type: Date,
     },password:{
         type: String,
         required: true
@@ -52,7 +52,7 @@ schema.pre('save', function(next) {
         });
     });
 });
-schema.pre('replaceOne', function(next) {
+schema.pre('findOneAndReplace', function(next) {
     var user = this._update;
     if(user.avatarimg == 'undefined'){
         let dir = path.resolve(__dirname, `../static/users/${user.oldregistration}.png`);
@@ -61,6 +61,9 @@ schema.pre('replaceOne', function(next) {
             fs.renameSync(dir, newdir);
         }
     }
+    next();
+    /*
+    console.log("THISUSER", user);
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
         if(err)return next(err);
         bcrypt.hash(user.password, salt, function(err, hash){
@@ -68,7 +71,7 @@ schema.pre('replaceOne', function(next) {
             user.password = hash;
             next();
         });
-    });
+    });*/
 });
 schema.pre('findOneAndUpdate', function(next) {
     var user = this._update;

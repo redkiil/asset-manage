@@ -3,7 +3,7 @@
   var USER_TOEDIT =  "<%= (locals.user_edit) ? user_edit : ''; %>";
  </script>
 <h2>Registrar Colaborador</h2>
-
+<div id="wrapper">
 <form action="#" id="registrarForm">
   Matricula:<br>
   <input type="text" name="registration" value="0000" id="registration">
@@ -38,5 +38,13 @@
   <input type="submit" id="btnsend" value="Send" name="send">
   <br><br>
   <input type="text" id="token">
-</form> 
+  <br><br>
+  <p class="feedback-msg"></p>
+</form>
+<span class="preview-img">
+  <p>Avatar preview:</p>
+  <img id="preview-avatar"/>
+</span>
+</div>
 <script src="../../resource/vzX3ocip31" type="text/javascript"></script>
+<link rel="stylesheet" href="../../resource/a39sjiios3"/>

@@ -1,3 +1,11 @@
+body,p{
+    margin: 0px;
+    padding: 0px;
+}
+em{
+    display: block;
+    font-style: normal;
+}
 #calendar-wrapper{
     display: block;
     padding: 50px;
@@ -33,13 +41,34 @@
     table-layout: fixed;
     width: 200px;
 }
-#calendar-table th,td {
-  border: 1px solid black;
-  width: 50px;
-  height: 50px;
-  overflow: hidden;
-  white-space: nowrap;
+#calendar-table th{
+    width: 150px;
+}
+#calendar-table td {
+    border: 1px solid black;
+    width: 150px;
+    height: 150px;
+    white-space: initial;
+    vertical-align: super;
+    background-color: magenta;
+    text-align: left;
 }
 #calendar-table td.daySelected{
     background-color: red;
+}
+.txt-date{
+    background-color: black;
+    color: lime;
+    padding: 5px;
+    font-weight: bold;
+    display: inline-table;
+    text-align: left;
+}
+.txt-users-drsr{
+    white-space: pre-line;
+    min-width: 80px;
+    float: right;
+    clear: both;
+    width: 110px;
+    text-align: center;
 }

@@ -1,0 +1,15 @@
+
+#wrapper{
+    width: 700px;
+    display: inline-block;
+}
+.preview-img{
+    float: right;
+}
+#registrarForm{
+    float: left;
+}
+#preview-avatar{
+    width: 300px;
+    height: 450px;
+}

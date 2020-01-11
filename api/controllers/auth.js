@@ -9,6 +9,7 @@ exports.post = async(req, res) =>{
     const { registration , password } = req.body;
     
     const usr = await User.findOne({ registration: registration });
+    if(!usr)return res.status(400).send({ message: "usuario invalido"});
     const passok = await usr.checkPassword(password);
     
     if(usr && passok){
@@ -17,25 +18,25 @@ exports.post = async(req, res) =>{
         });
         let cu = `Bearer ${token}`;
         res.cookie('usrtoken',cu, { maxAge: 864000000, httpOnly: true});
-        return res.status(200).send({ msg: "logado com sucesso"});
+        return res.status(200).send({ message: "logado com sucesso"});
     }
-    res.status(400).send({ msg: "matricula e/ou senha incorretos"});
+    res.status(400).send({ message: "matricula e/ou senha incorretos"});
 };
 
 exports.get = (req, res) => {
     res.clearCookie('usrtoken');
-    return res.status(200).send({ msg: "OK"});
+    return res.status(200).send({ message: "OK"});
 };
 exports.validateData = (req, res, next) =>{
     const { registration , password } = req.body;
     if(!registration)
-        return  res.status(400).send({ msg: "campo matricula bazio"});
+        return  res.status(400).send({ message: "campo matricula bazio"});
     let regexp = /^[0-9]{4,5}$/;
     let okregistration = regexp.test(registration);
     if(!okregistration)
-        return  res.status(400).send({ msg: "formato matricula invalido"});
+        return  res.status(400).send({ message: "formato matricula invalido"});
     if(!password)
-        return  res.status(400).send({ msg: "campo senha vazio"});
+        return  res.status(400).send({ message: "campo senha vazio"});
     return next();
 };
 exports.validateuser = async(req, res) => {

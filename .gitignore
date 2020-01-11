@@ -1,3 +1,4 @@
 api/node_modules/*
 site/node_modules/*
+api/static
 node_modules

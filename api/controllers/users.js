@@ -16,11 +16,10 @@ exports.post = (req, res, next) =>{
     var data = req.body;
     data.password = "blank_to";
     var usr = new User(data);
-    console.log("OASKD", authConfig.register_secret);
-    const asd = crypto.randomBytes(16).toString("hex");
+    const jti_ = crypto.randomBytes(16).toString("hex");
     const token = jwt.sign({ to_user: data.registration}, authConfig.register_secret, {
         expiresIn: 86400
-    , jwtid: asd});
+    , jwtid: jti_});
     usr.save().then(x=>{
         res.status(201).send({ message: 'user has been created.', token: token});
     }).catch(e=>{
@@ -45,14 +44,18 @@ exports.getByRegistration = (req, res, next) =>{
 }
 exports.put = (req, res, next)=>{
     req.body.oldregistration = req.params.rid;
-    User.replaceOne({ registration: req.params.rid }, req.body, { new: true }).then(r=>{
+    User.findOne({ registration: req.params.rid}).select('password').then(r=>{
+        req.body.password = r.password;
+        return  User.findOneAndReplace({ registration: req.params.rid }, req.body, { new: true });
+    }).then(r=>{
         res.status(200).send(r);
     }).catch(e=>{
-        res.status(400).send(e);
-    });
+        res.status(400).send(e.data);
+    })
+    
 };
 exports.geyBySubSector = (req, res, next) =>{
-    User.find({ subsector: req.params.ssectorid },'name registration fleetid job').populate('vehicle').populate('job').select("-_id").then(data=>{
+    User.find({ subsector: req.params.ssectorid },'name registration fleetid job').populate('vehicle', '-_id').populate('job').select("-_id").then(data=>{
         res.status(200).send(data);
     }).catch(e=>{
         res.status(400).send({"message": "fail to fetch users by "+ req.params.ssectorid });
@@ -92,16 +95,42 @@ exports.createBadge = async (req, res) =>{
         canvas.pngStream().pipe(res);
     }
     userImage.onerror = err => {
-        console.log(err)
+        console.log(err);
     }
     baseImage.onerror = err =>{
         console.log(err);
     }
     baseImage.src = './badges/test.png';
-    let dirimg = path.resolve(__dirname, `../static/users/${id}.png`);
+    let dirimg = path.resolve(__dirname, `../static/users/${id}.jpg`);
     fs.existsSync(dirimg) ? userImage.src = dirimg : userImage.src = './badges/default-avatar.png';
 };
-
+exports.resizeAvatar = async(req, res, next) => {
+    if(req.file){
+        const img = new Canvas.Image();
+        img.onload = () => { 
+            var canvas = Canvas.createCanvas(150, 250)
+            var ctx = canvas.getContext('2d')
+            ctx.drawImage(img, 0, 0, 150, 250);
+            let dirimg = path.resolve(__dirname, `../static/users/${req.body.registration}.jpg`);
+            const out = fs.createWriteStream(dirimg);
+            const stream = canvas.createJPEGStream();
+            stream.pipe(out);
+            out.on('error', (e) =>  res.status(400).send("fail"));
+            out.on('finish', (r) =>  next());
+        };
+        img.onerror = err => { res.status(400).send({ message: "problem with resizing of avatar"}); }
+        img.src = req.file.buffer;
+    }else{
+        next();
+    }
+};
+exports.recoveryToken = (req, res, next) => {
+    const jti_ = crypto.randomBytes(16).toString("hex");
+    const token = jwt.sign({ to_user: req.body.registration }, authConfig.register_secret, {
+        expiresIn: 86400
+    , jwtid: jti_});
+    res.status(200).send({ message: 'token gerado com sucesso', token: token});
+}
 exports.changePassword = async (req, res, next) => {
     let rcv_token = req.params.token;
     let new_password = req.body.new_pass;
@@ -110,8 +139,8 @@ exports.changePassword = async (req, res, next) => {
         if(token.e)return res.status(400).send({ message: token.e.message });
         let token_exist = await Tokens.findOne({ jti: token.d.jti });
         if(token_exist)return res.status(400).send({ message: 'this token has already been used' });
-        let dojob = await User.findOneAndUpdate({ registration: token.to_user }, { password: new_password }).exec();
-        let rresult = new Tokens(token.d).save();
+        let dojob = await User.findOneAndUpdate({ registration: token.d.to_user }, { password: new_password }).exec();
+        new Tokens(token.d).save();
         res.status(200).send({ message: 'senha alterada com sucesso'});
     }catch(e){
         res.status(400).send({ message: e});

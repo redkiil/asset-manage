@@ -8,6 +8,7 @@ const app = express();
 const path = require('path');
 const router = express.Router();
 
+mongoose.set('useNewUrlParser', true);
 mongoose.connect('mongodb+srv://redkiil:redkiil@cluster0-aml3p.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true});
 
 const Users = require('./models/users');

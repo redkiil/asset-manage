@@ -4,8 +4,29 @@ var dateDom = document.querySelector('.date');
 var calendar = document.querySelector("#calendar-table tbody");
 var date = new Date();
 var lastmonth;
+let fakeUsers = [{
+        'name': 'Augusto Neto',
+        'dayoff': Date.now(),
+    },{
+        'name': 'Augusto ',
+        'dayoff': Date.now(),
+    },{
+        'name': 'Pedro Serafim',
+        'dayoff': Date.now() + (1000 * 86400),
+    },{
+        'name': 'Joao Pedro',
+        'dayoff': Date.now() + (1000 * 86400 * 3),
+    },{
+        'name': 'Pedrao Neto',
+        'dayoff': Date.now(),
+    }
+]
 setTimeout(() => {
     dateDom.innerHTML = formatDate(date);
+    fakeUsers.forEach(data=>{
+        console.log(new Date(data.dayoff).toISOString());
+
+    })
 }, 100);
 toleft.addEventListener('click', function(){
     date.setDate(date.getDate() - 1);
@@ -40,14 +61,25 @@ function changeDayClass(day){
 function generateCalendar(month, year){
     calendar.innerHTML = " ";
     let days = getDaysInMonth(month, year);
-    let week = [" ", " ", " ", " ", " ", " ", " "];
+    let week = [[" ", -1], [" ", -1], [" ",-1], [" ", -1], [" ", -1], [" ", -1], [" ",-1]];
     let rows = "";
     days.forEach(function(e,idx){
-        week[e.getDay()] = e.getDate();
+        let getFruit = fakeUsers.filter(user => new Date(user.dayoff).getDate() == e.getDate());
+        var string = getFruit.map(i => `<em>${i.name}</em>`).join(' ');
+        console.log("THFRUITLEN", string);
+        //console.log("TJESTRIG", string);
+        //week[e.getDay()] += string;
+        if(getFruit.length){
+            week[e.getDay()][0] = `<p class='txt-date'>${e.getDate()}</p><span class='txt-users-drsr'><p>DSR:</p>${string}</span>`;
+            week[e.getDay()][1] = e.getDate();
+        }else{
+            week[e.getDay()][0] = `<p class='txt-date'>${e.getDate()}</p>`;
+            week[e.getDay()][1] = e.getDate();
+        }
         if(e.getDay() == 6 || ((days.length-1) === idx)){
             //TODO: refact this to createElement
-            rows += `<tr><td data-id=${week[0]}>${week[0]}</td><td data-id=${week[1]}>${week[1]}</td><td data-id=${week[2]}>${week[2]}</td><td data-id=${week[3]}>${week[3]}</td><td data-id=${week[4]}>${week[4]}</td><td data-id=${week[5]}>${week[5]}</td><td data-id=${week[6]}>${week[6]}</td></tr>`;;
-            week = [" ", " ", " ", " ", " ", " ", " "];
+            rows += `<tr><td data-id=${week[0][1]}>${week[0][0]}</td><td data-id=${week[1][1]}>${week[1][0]}</td><td data-id=${week[2][1]}>${week[2][0]}</td><td data-id=${week[3][1]}>${week[3][0]}</td><td data-id=${week[4][1]}>${week[4][0]}</td><td data-id=${week[5][1]}>${week[5][0]}</td><td data-id=${week[6][1]}>${week[6][0]}</td></tr>`;;
+            week = [[" ", -1], [" ", -1], [" ",-1], [" ", -1], [" ", -1], [" ", -1], [" ",-1]];
         }
         if((days.length-1) === idx){
             calendar.insertAdjacentHTML('beforeend', rows);

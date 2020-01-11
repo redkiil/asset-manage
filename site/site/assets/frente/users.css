@@ -18,10 +18,12 @@ body{
     display: inline-block;
     height: 140px;
     width: 180px;
-    background-color: cadetblue;
+    background-color: #EDF1F8;
     padding: 10px;
     margin-left: 15px;
     overflow: hidden;
+    border-radius: 15px;
+    box-shadow: inset 1px 1px 81px -10px rgba(0,0,0,0.42);
 }
 #workers-container ul li span{
     font-size: 12px;

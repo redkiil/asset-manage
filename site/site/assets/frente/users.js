@@ -4,11 +4,10 @@ if(SECID){
     axios.get(`${API}/sectors/subsector/${SECID}`).then(r=>{
         namedto.innerHTML = `${r.data.name} - ${r.data.sectorid.name}`;
     }).catch(e=>{
-        console.log(e);
+        alert(e);
     })
     axios.get(`${API}/users/subsector/${SECID}`).then(data => {
         data.data.forEach(elem => {
-            console.log("OAS", elem);
             let lis = document.createElement('li');
             let img = document.createElement('img');
             let txt = document.createElement('span');

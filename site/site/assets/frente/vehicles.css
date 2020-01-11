@@ -1,0 +1,70 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+a{
+    text-decoration: none;
+    color: #FFF;
+}
+
+#veh-wrapper{
+    background-color: #BB0028;
+    height: 100%;
+    width: fit-content;
+    box-shadow: inset 1px 1px 63px -10px rgba(0,0,0,0.42);
+}
+.harvesters-wrapper{
+    margin-bottom: 25px;
+    padding: 50px;
+}
+.tractors-wrapper{
+    padding: 50px;
+
+}
+#displayname,.veh-wrapper p:nth-child(1){
+    display: inline-block;
+    padding: 5px 50px;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1), 10px 10px 10px rgba(0, 0, 0, 0.2), -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
+    font-weight: bold;
+    width: max-content;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    background-color: #EDF1F8;
+    border: 3px solid #000;
+    box-shadow: inset 1px 1px 63px -10px rgba(0,0,0,0.42);
+}
+#displayname{
+    margin-top: 40px;
+    background-color: #BB0028;
+}
+.veh-wrapper ul li{
+    display: inline-block;
+    text-align: center;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1), 10px 10px 10px rgba(0, 0, 0, 0.2), -1px -1px 0 #000,  1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
+    min-width: 250px;
+    min-height: 40px;
+    padding: 15px;
+    overflow: hidden;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #EDF1F8;
+    box-shadow: inset 1px 1px 81px -10px rgba(0,0,0,0.42);
+    border: 3px solid #000;
+    margin-bottom: -4px;
+}
+.veh-wrapper .fas{
+    color: #F7B32B;
+}
+.gear{
+    float: right;
+    opacity: .7;
+    transition: .5s;
+}
+.gear:hover{
+    opacity: 1;
+}
+.trac{
+    float: left;
+}

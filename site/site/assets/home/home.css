@@ -69,4 +69,5 @@ body{
 }
 .content{
     margin-left: 290px;
+    height: fit-content;
 }
