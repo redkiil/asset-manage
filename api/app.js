@@ -9,7 +9,7 @@ const path = require('path');
 const router = express.Router();
 
 mongoose.set('useNewUrlParser', true);
-mongoose.connect('mongodb+srv://redkiil:redkiil@cluster0-aml3p.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true});
+mongoose.connect('', { useNewUrlParser: true});
 
 const Users = require('./models/users');
 const Sectors = require('./models/sectors');
